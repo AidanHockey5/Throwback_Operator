@@ -127,13 +127,13 @@ void startClocks()
 
 void setISR()
 {
-  Timer3.pause();
-  Timer3.setPrescaleFactor(1);
-  Timer3.setOverflow(1633);
-  Timer3.setChannel1Mode(TIMER_OUTPUT_COMPARE);
-  Timer3.attachCompare1Interrupt(tick);
-  Timer3.refresh();
-  Timer3.resume();  
+  Timer4.pause();
+  Timer4.setPrescaleFactor(1);
+  Timer4.setOverflow(1633);
+  Timer4.setChannel1Mode(TIMER_OUTPUT_COMPARE);
+  Timer4.attachCompare1Interrupt(tick);
+  Timer4.refresh();
+  Timer4.resume();  
 }
 
 void prepareChips()
@@ -552,6 +552,13 @@ uint16_t parseVGM()
   uint8_t cmd = readBuffer();
   switch(cmd)
   {
+    case 0x5A:
+    {
+      uint8_t d = readBuffer();
+      uint8_t a = readBuffer();
+      opl.Send(a, d, 0);
+      return 1;
+    }
     case 0x5E:
     {
       uint8_t d = readBuffer();
