@@ -3,57 +3,52 @@
 union U_32
 {
     uint32_t fullWord;
-    uint8_t bytes[4]; //0-1 EMPTY, 2 HIGH, 3 LOW
+    uint8_t bytes[4]; //0-1 LOW+HIGH, 2-3 EMPTY
 } port;
 
 void Write(uint8_t data)
 {
-    // port.fullWord = GPIOB->regs->ODR; //Grab current state of the port
-    // port.bytes[2] = data;       //Stuff data byte into section where GPIO bus is
-    // GPIOB->regs->ODR = port.fullWord; //Send it back to the port
-    //data = ~data;
-    GPIOB->regs->BSRR = (1U << 8) << (16 * ((data >> 0)&1));
-    GPIOB->regs->BSRR = (1U << 9) << (16 * ((data >> 1)&1));
-    GPIOB->regs->BSRR = (1U << 10) << (16 * ((data >> 2)&1));
-    GPIOB->regs->BSRR = (1U << 11) << (16 * ((data >> 3)&1));
-    GPIOB->regs->BSRR = (1U << 12) << (16 * ((data >> 4)&1));
-    GPIOB->regs->BSRR = (1U << 13) << (16 * ((data >> 5)&1));
-    GPIOB->regs->BSRR = (1U << 14) << (16 * ((data >> 6)&1));
-    GPIOB->regs->BSRR = (1U << 15) << (16 * ((data >> 7)&1));
+    port.fullWord = GPIOB->regs->ODR; //Grab current state of the port
+    port.bytes[1] = data;       //Stuff data byte into section where the 8-bit GPIO data bus is
+    GPIOB->regs->ODR = port.fullWord; //Send it back to the port
 }
 
 void OPL3::Send(uint8_t addr, uint8_t data, bool setA1)
 {
-    // GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH);   //CS HIGH
-    // GPIOB->regs->BSRR = (1U << 6) << (16 * LOW);    //WR LOW
-    // GPIOC->regs->BSRR = (1U << 13) << (16 * LOW);    //A0 LOW
-    // GPIOB->regs->BSRR = (1U << 14) << (16 * setA1); //A1 setA1
     // Write(addr);
+    // GPIOB->regs->BSRR = (1U << 6) << (16 * LOW);    //WR LOW
+    // GPIOC->regs->BSRR = (1U << 14) << (16 * setA1); //A1 setA1
+    // GPIOC->regs->BSRR = (1U << 13) << (16 * LOW);    //A0 LOW
     // GPIOA->regs->BSRR = (1U << 9) << (16 * LOW);   //CS LOW
-    // delayMicroseconds(4); 
-    // GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH);   //CS HIGH
-    // GPIOC->regs->BSRR = (1U << 13) << (16 * HIGH);    //A0 HIGH
+    // delayMicroseconds(4);                           //Usually needs about 2.2uS, but we'll use 4uS to stay on the safe side
+    // GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH); //CS HIGH
+    // //Possible WR reset here to high then back to low after write?
     // Write(data);
+    // GPIOC->regs->BSRR = (1U << 13) << (16 * HIGH);    //A0 HIGH
     // GPIOA->regs->BSRR = (1U << 9) << (16 * LOW);   //CS LOW
     // delayMicroseconds(4); 
     // GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH);   //CS HIGH
     // GPIOB->regs->BSRR = (1U << 6) << (16 * HIGH);    //WR HIGH
-    // GPIOC->regs->BSRR = (1U << 13) << (16 * HIGH);    //A0 HIGH
 
+
+    
+    digitalWrite(A1, setA1); //A1 setA1
+    digitalWrite(A0, LOW);   //A0 LOW
     Write(addr);
-    GPIOB->regs->BSRR = (1U << 6) << (16 * LOW);    //WR LOW
-    GPIOC->regs->BSRR = (1U << 14) << (16 * setA1); //A1 setA1
-    GPIOC->regs->BSRR = (1U << 13) << (16 * LOW);    //A0 LOW
-    GPIOA->regs->BSRR = (1U << 9) << (16 * LOW);   //CS LOW
-    delayMicroseconds(4);                           //Usually needs about 2.2uS, but we'll use 4uS to stay on the safe side
-    GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH);
-    //Possible WR reset here to high then back to low after write?
+    digitalWrite(WR, LOW);    //WR LOW
+    digitalWrite(CS, LOW);   //CS LOW
+    delayMicroseconds(3);
+    digitalWrite(WR, HIGH);
+    digitalWrite(CS, HIGH);   //CS HIGH
+    digitalWrite(A0, HIGH);   //A0 HIGH
     Write(data);
-    GPIOC->regs->BSRR = (1U << 13) << (16 * HIGH);    //A0 HIGH
-    GPIOA->regs->BSRR = (1U << 9) << (16 * LOW);   //CS LOW
-    delayMicroseconds(4); 
-    GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH);   //CS HIGH
-    GPIOB->regs->BSRR = (1U << 6) << (16 * HIGH);    //WR HIGH
+    digitalWrite(WR, LOW);    //WR LOW
+    digitalWrite(CS, LOW);   //CS LOW
+    delayMicroseconds(3);
+    digitalWrite(WR, HIGH);    //WR HIGH
+    digitalWrite(CS, HIGH);   //CS LOW
+
+
 }
 
 void OPL3::Reset()
@@ -62,11 +57,12 @@ void OPL3::Reset()
     delayMicroseconds(25);
     digitalWrite(IC, HIGH);
     delayMicroseconds(25);
+    Send(0x05, 1, 1); //Set the OPL mode. Write 1 to this address for OPL3, 0 for OPL2. TODO: Detect chip from VGM clock
 }
 
 OPL3::OPL3()
 {
-    pinMode(IC, OUTPUT);
+    pinMode(IC, OUTPUT_OPEN_DRAIN);
     pinMode(CS, OUTPUT_OPEN_DRAIN);
     pinMode(A0, OUTPUT);
     pinMode(A1, OUTPUT);

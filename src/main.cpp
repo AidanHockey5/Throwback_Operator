@@ -554,22 +554,22 @@ uint16_t parseVGM()
   {
     case 0x5A:
     {
-      uint8_t d = readBuffer();
       uint8_t a = readBuffer();
+      uint8_t d = readBuffer();
       opl.Send(a, d, 0);
       return 1;
     }
     case 0x5E:
     {
-      uint8_t d = readBuffer();
       uint8_t a = readBuffer();
+      uint8_t d = readBuffer();
       opl.Send(a, d, 0);
       return 1;
     }
     case 0x5F:
     {
-      uint8_t d = readBuffer();
       uint8_t a = readBuffer();
+      uint8_t d = readBuffer();
       opl.Send(a, d, 1);
       return 1;
     }
