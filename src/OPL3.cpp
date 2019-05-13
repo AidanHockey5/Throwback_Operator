@@ -15,41 +15,29 @@ void Write(uint8_t data)
 
 void OPL3::Send(uint8_t addr, uint8_t data, bool setA1)
 {
-    // Write(addr);
-    // GPIOB->regs->BSRR = (1U << 6) << (16 * LOW);    //WR LOW
-    // GPIOC->regs->BSRR = (1U << 14) << (16 * setA1); //A1 setA1
-    // GPIOC->regs->BSRR = (1U << 13) << (16 * LOW);    //A0 LOW
-    // GPIOA->regs->BSRR = (1U << 9) << (16 * LOW);   //CS LOW
-    // delayMicroseconds(4);                           //Usually needs about 2.2uS, but we'll use 4uS to stay on the safe side
-    // GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH); //CS HIGH
-    // //Possible WR reset here to high then back to low after write?
-    // Write(data);
-    // GPIOC->regs->BSRR = (1U << 13) << (16 * HIGH);    //A0 HIGH
-    // GPIOA->regs->BSRR = (1U << 9) << (16 * LOW);   //CS LOW
-    // delayMicroseconds(4); 
-    // GPIOA->regs->BSRR = (1U << 9) << (16 * HIGH);   //CS HIGH
-    // GPIOB->regs->BSRR = (1U << 6) << (16 * HIGH);    //WR HIGH
-
-
-    
-    digitalWrite(A1, setA1); //A1 setA1
-    digitalWrite(A0, LOW);   //A0 LOW
+    GPIOC->regs->BSRR = (1U << 14) << (16 * !setA1);    //A1 setA1
+    GPIOC->regs->ODR &= ~(0x2000);                      //A0 LOW
     Write(addr);
-    digitalWrite(WR, LOW);    //WR LOW
-    digitalWrite(CS, LOW);   //CS LOW
-    delayMicroseconds(3);
-    digitalWrite(WR, HIGH);
-    digitalWrite(CS, HIGH);   //CS HIGH
-    digitalWrite(A0, HIGH);   //A0 HIGH
+    GPIOB->regs->ODR &= ~(0x40);                        //WR LOW
+    GPIOA->regs->ODR |= 0x200;                          //CS LOW (OPEN_DRAIN : HIGH)
+    delayMicroseconds(2);
+    GPIOB->regs->ODR |= 0x40;                           //WR HIGH
+    GPIOA->regs->ODR &= ~(0x200);                       //CS HIGH (OPEN_DRAIN : LOW)
+    GPIOC->regs->ODR |= 0x2000;                         //A0 HIGH
     Write(data);
-    digitalWrite(WR, LOW);    //WR LOW
-    digitalWrite(CS, LOW);   //CS LOW
-    delayMicroseconds(3);
-    digitalWrite(WR, HIGH);    //WR HIGH
-    digitalWrite(CS, HIGH);   //CS LOW
-
-
+    GPIOB->regs->ODR &= ~(0x40);                        //WR LOW
+    GPIOA->regs->ODR |= 0x200;                          //CS LOW (OPEN_DRAIN : HIGH)
+    delayMicroseconds(2);
+    GPIOB->regs->ODR |= 0x40;                           //WR HIGH
+    GPIOA->regs->ODR &= ~(0x200);                       //CS HIGH (OPEN_DRAIN : LOW)
 }
+
+ void OPL3::SetOPLMode(bool isOPL3)
+ {
+    Reset();
+    Send(0x05, 1, isOPL3); //Set the OPL mode. Write 1 to this address for OPL3, 0 for OPL2. TODO: Detect chip from VGM clock
+    delayMicroseconds(5);
+ }
 
 void OPL3::Reset()
 {
@@ -57,7 +45,6 @@ void OPL3::Reset()
     delayMicroseconds(25);
     digitalWrite(IC, HIGH);
     delayMicroseconds(25);
-    Send(0x05, 1, 1); //Set the OPL mode. Write 1 to this address for OPL3, 0 for OPL2. TODO: Detect chip from VGM clock
 }
 
 OPL3::OPL3()

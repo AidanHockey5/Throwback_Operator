@@ -138,7 +138,16 @@ void setISR()
 
 void prepareChips()
 {
-  opl.Reset();
+  if(header.ym3812clock > 0)
+  {
+    Serial.println("OPL2 MODE");
+    opl.SetOPLMode(0); //OPL2 mode
+  }
+  else if(header.ymf262clock > 0)
+  {
+    Serial.println("OPL3 MODE");
+    opl.SetOPLMode(1); //OPL3 mode
+  }
 }
 
 //Mount file and prepare for playback. Returns true if file is found.
@@ -275,22 +284,59 @@ bool startTrack(FileStrategy fileStrategy, String request)
   fillBuffer();
 
   //VGM Header
-  header.indent = readBuffer32(); //VGM
-  header.EoF = readBuffer32(); //EoF
-  header.version = readBuffer32(); //Version
-  header.sn76489Clock = readBuffer32(); //SN Clock
-  header.ym2413Clock = readBuffer32(); //YM2413 Clock
-  header.gd3Offset = readBuffer32(); //GD3 Offset
-  header.totalSamples = readBuffer32(); //Total Samples
-  header.loopOffset = readBuffer32(); //Loop Offset
-  header.loopNumSamples = readBuffer32(); //Loop # Samples
-  header.rate = readBuffer32(); //Rate
-  header.snX = readBuffer32(); //SN etc.
-  header.ym2612Clock = readBuffer32(); //YM2612 Clock
-  header.ym2151Clock = readBuffer32(); //YM2151 Clock
-  header.vgmDataOffset = readBuffer32(); //VGM data Offset
-  header.segaPCMClock = readBuffer32(); //Sega PCM Clock
-  header.spcmInterface = readBuffer32(); //SPCM Interface
+  header.indent = readBuffer32();
+  header.EoF = readBuffer32(); 
+  header.version = readBuffer32(); 
+  header.sn76489Clock = readBuffer32(); 
+  header.ym2413Clock = readBuffer32();
+  header.gd3Offset = readBuffer32();
+  header.totalSamples = readBuffer32(); 
+  header.loopOffset = readBuffer32(); 
+  header.loopNumSamples = readBuffer32(); 
+  header.rate = readBuffer32(); 
+  header.snX = readBuffer32(); 
+  header.ym2612Clock = readBuffer32(); 
+  header.ym2151Clock = readBuffer32(); 
+  header.vgmDataOffset = readBuffer32(); 
+  header.segaPCMClock = readBuffer32(); 
+  header.spcmInterface = readBuffer32(); 
+  header.rf5C68clock = readBuffer32();
+  header.ym2203clock = readBuffer32();
+  header.ym2608clock = readBuffer32();
+  header.ym2610clock = readBuffer32();
+  header.ym3812clock = readBuffer32();
+  header.ym3526clock = readBuffer32();
+  header.y8950clock = readBuffer32();
+  header.ymf262clock = readBuffer32();
+  header.ymf271clock = readBuffer32();
+  header.ymz280Bclock = readBuffer32();
+  header.rf5C164clock = readBuffer32();
+  header.pwmclock = readBuffer32();
+  header.ay8910clock = readBuffer32();
+  header.ayclockflags = readBuffer32();
+  header.vmlblm = readBuffer32();
+  if(header.version > 0x151)
+  {
+    header.gbdgmclock = readBuffer32();
+    header.nesapuclock = readBuffer32();
+    header.multipcmclock = readBuffer32();
+    header.upd7759clock = readBuffer32();
+    header.okim6258clock = readBuffer32();
+    header.ofkfcf = readBuffer32();
+    header.okim6295clock = readBuffer32();
+    header.k051649clock = readBuffer32();
+    header.k054539clock = readBuffer32();
+    header.huc6280clock = readBuffer32();
+    header.c140clock = readBuffer32();
+    header.k053260clock = readBuffer32();
+    header.pokeyclock = readBuffer32();
+    header.qsoundclock = readBuffer32();
+    header.scspclock = readBuffer32();
+    header.extrahdrofs = readBuffer32();
+    header.wonderswanclock = readBuffer32();
+    header.vsuClock = readBuffer32();
+    header.saa1099clock = readBuffer32();
+  }
 
   #if DEBUG
   Serial.print("Indent: 0x"); Serial.println(header.indent, HEX);
@@ -308,6 +354,10 @@ bool startTrack(FileStrategy fileStrategy, String request)
   Serial.print("YM2151 Clock: "); Serial.println(header.ym2151Clock);
   Serial.print("VGM data Offset: 0x"); Serial.println(header.vgmDataOffset, HEX);
   Serial.print("SPCM Interface: 0x"); Serial.println(header.spcmInterface, HEX);
+  Serial.println("...");
+  Serial.print("YM3812 Clock: 0x"); Serial.println(header.ym3812clock, HEX);
+  Serial.print("YMF262clock Clock: 0x"); Serial.println(header.ymf262clock, HEX);
+  Serial.print("SAA1099 Clock: 0x"); Serial.println(header.saa1099clock, HEX);
   #endif
 
   //Jump to VGM data start and compute loop location
@@ -348,6 +398,7 @@ bool vgmVerify()
     startTrack(NEXT);
     return false;
   }
+  
   Serial.println("VGM OK!");
   readGD3();
   Serial.println(gd3.enGameName);
@@ -539,11 +590,6 @@ void tick()
     return;
   if(waitSamples > 0)
     waitSamples--;
-  if(waitSamples == 0)
-  {
-    waitSamples += parseVGM();
-    return;
-  }
 }
 
 //Execute next VGM command set. Return back wait time in samples
@@ -726,6 +772,11 @@ void handleSerialIn()
 void loop()
 {    
   topUpBuffer();
+  if(waitSamples == 0)
+  {
+    waitSamples += parseVGM();
+    return;
+  }
   if(loopCount >= maxLoops && playMode != LOOP)
   {
     bool newTrack = false;

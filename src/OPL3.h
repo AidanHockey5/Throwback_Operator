@@ -15,6 +15,7 @@ public:
     OPL3(/* args */);
     ~OPL3();
     void Send(uint8_t addr, uint8_t data, bool setA1);
+    void SetOPLMode(bool isOPL3);
     void Reset();
 };
 
