@@ -35,7 +35,7 @@ void OPL3::Send(uint8_t addr, uint8_t data, bool setA1)
  void OPL3::SetOPLMode(bool isOPL3)
  {
     Reset();
-    Send(0x05, 1, isOPL3); //Set the OPL mode. Write 1 to this address for OPL3, 0 for OPL2. TODO: Detect chip from VGM clock
+    Send(0x05, isOPL3, 1); //Set the OPL mode. Write 1 to this address for OPL3, 0 for OPL2.
     delayMicroseconds(5);
  }
 
