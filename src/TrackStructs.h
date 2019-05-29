@@ -132,4 +132,5 @@ enum FileStrategy {FIRST_START, NEXT, PREV, RND, REQUEST};
 enum PlayMode {LOOP, PAUSE, SHUFFLE, IN_ORDER};
 static VGMHeader header;
 static GD3 gd3;
+static PlayMode playMode;
 #endif

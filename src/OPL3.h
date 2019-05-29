@@ -9,8 +9,8 @@ private:
     uint8_t CS = PA9;
     uint8_t A0 = PC13;
     uint8_t A1 = PC14;
-    uint8_t WR = PB6;
-    uint8_t RD = PB7;
+    uint8_t WR = PB5;
+
 public:
     OPL3(/* args */);
     ~OPL3();
@@ -35,8 +35,8 @@ PB15 -   D7
 PC13   -   A0
 PC14   -   A1
 
-PB6   -  WR
-PB7   -  RD
+PB5   -  WR
+PULLED HIGH   -  RD
 
 PA8   -   IC
 PA9 -   CS

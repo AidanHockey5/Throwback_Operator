@@ -2,6 +2,7 @@
 #include "OPL3.h"
 #include <SPI.h>
 #include "SdFat.h"
+#include <U8g2lib.h>
 #include "TrackStructs.h"
 #include "ringbuffer.h"
 
@@ -26,7 +27,7 @@ void clearBuffers();
 //void handleButtons();
 void prepareChips();
 void readGD3();
-void setISR();
+void startISR();
 void drawOLEDTrackInfo();
 bool startTrack(FileStrategy fileStrategy, String request = "");
 bool vgmVerify();
@@ -61,26 +62,40 @@ uint16_t waitSamples = 0;
 
 //VGM Variables
 uint16_t loopCount = 0;
-uint8_t maxLoops = 3;
+const uint8_t maxLoops = 3;
 bool fetching = false;
 volatile bool ready = false;
-PlayMode playMode = SHUFFLE;
+//PlayMode playMode = PlayMode::IN_ORDER;
+
+//OLED
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2(U8G2_R0);
 
 void setup()
 {
   startClocks();
+  playMode = PlayMode::SHUFFLE;
+  u8g2.begin();
+  u8g2.setFont(u8g2_font_fub11_tf);
+  u8g2.clearBuffer();
+  u8g2.drawStr(0,16,"Aidan Lawrence");
+  u8g2.drawStr(0,32,"OPL3, 2019");
+  u8g2.sendBuffer();
 
   //DEBUG
   pinMode(DEBUG_LED, OUTPUT);
   digitalWrite(DEBUG_LED, LOW);
 
   //COM
-  Serial.begin(9600);
+  Serial2.begin(9600);
 
   //SD
   if(!SD.begin(PA4, SD_SCK_HZ(F_CPU/2)))
   {
-    while(true){Serial.println("SD MOUNT FAILED"); digitalWrite(DEBUG_LED, HIGH); delay(1000);}
+    u8g2.clearBuffer();
+    u8g2.drawStr(0,16,"SD Mount");
+    u8g2.drawStr(0,32,"failed!");
+    u8g2.sendBuffer();
+    while(true){Serial2.println("SD MOUNT FAILED"); digitalWrite(DEBUG_LED, HIGH); delay(1000);}
   }
 
   //Prepare files
@@ -96,7 +111,7 @@ void setup()
   SD.vwd()->rewind();
 
   //44.1KHz tick
-  setISR();
+  startISR();
 
   //Begin
   startTrack(FIRST_START);
@@ -125,7 +140,13 @@ void startClocks()
   TIMER2_BASE->CCR2 = 2;              // SET duty cycle to 50%
 }
 
-void setISR()
+void stopISR()
+{
+  Timer4.pause();
+  Timer4.refresh();
+}
+
+void startISR()
 {
   Timer4.pause();
   Timer4.setPrescaleFactor(1);
@@ -136,16 +157,35 @@ void setISR()
   Timer4.resume();  
 }
 
+void drawOLEDTrackInfo()
+{
+  u8g2.setFont(u8g2_font_helvR08_tf);
+  u8g2.clearBuffer();
+  char *cstr = &gd3.enTrackName[0u];
+  u8g2.drawStr(0,9, cstr);
+  cstr = &gd3.enGameName[0u];
+  u8g2.drawStr(0,22, cstr);
+
+  u8g2.setFont(u8g2_font_micro_tr);
+  if(playMode == LOOP)
+    u8g2.drawStr(0,32, "LOOP");
+  else if(playMode == SHUFFLE)
+    u8g2.drawStr(0,32, "SHUFFLE");
+  else
+    u8g2.drawStr(0,32, "IN ORDER");
+  u8g2.sendBuffer();
+}
+
 void prepareChips()
 {
   if(header.ym3812clock > 0)
   {
-    Serial.println("OPL2 MODE");
+    Serial2.println("OPL2 MODE");
     opl.SetOPLMode(0); //OPL2 mode
   }
   else if(header.ymf262clock > 0)
   {
-    Serial.println("OPL3 MODE");
+    Serial2.println("OPL3 MODE");
     opl.SetOPLMode(1); //OPL3 mode
   }
 }
@@ -236,7 +276,7 @@ bool startTrack(FileStrategy fileStrategy, String request)
     {
       SD.vwd()->rewind();
       bool fileFound = false;
-      Serial.print("REQUEST: ");Serial.println(request);
+      Serial2.print("REQUEST: ");Serial2.println(request);
       for(uint32_t i = 0; i<numberOfFiles; i++)
       {
         nextFile.close();
@@ -255,11 +295,11 @@ bool startTrack(FileStrategy fileStrategy, String request)
       nextFile.close();
       if(fileFound)
       {
-        Serial.println("File found!");
+        Serial2.println("File found!");
       }
       else
       {
-        Serial.println("ERROR: File not found! Continuing with current song.");
+        Serial2.println("ERROR: File not found! Continuing with current song.");
         ready = true;
         return false;
       }
@@ -276,7 +316,7 @@ bool startTrack(FileStrategy fileStrategy, String request)
     file.close();
   file = SD.open(fileName, FILE_READ);
   if(!file)
-    Serial.println("Failed to read file");
+    Serial2.println("Failed to read file");
 
   clearBuffers();
   memset(&loopPreBuffer, 0, LOOP_PREBUF_SIZE);
@@ -339,25 +379,25 @@ bool startTrack(FileStrategy fileStrategy, String request)
   }
 
   #if DEBUG
-  Serial.print("Indent: 0x"); Serial.println(header.indent, HEX);
-  Serial.print("EoF: 0x"); Serial.println(header.EoF, HEX);
-  Serial.print("Version: 0x"); Serial.println(header.version, HEX);
-  Serial.print("SN Clock: "); Serial.println(header.sn76489Clock);
-  Serial.print("YM2413 Clock: "); Serial.println(header.ym2413Clock);
-  Serial.print("GD3 Offset: 0x"); Serial.println(header.gd3Offset, HEX);
-  Serial.print("Total Samples: "); Serial.println(header.totalSamples);
-  Serial.print("Loop Offset: 0x"); Serial.println(header.loopOffset, HEX);
-  Serial.print("Loop # Samples: "); Serial.println(header.loopNumSamples);
-  Serial.print("Rate: "); Serial.println(header.rate);
-  Serial.print("SN etc.: 0x"); Serial.println(header.snX, HEX);
-  Serial.print("YM2612 Clock: "); Serial.println(header.ym2612Clock);
-  Serial.print("YM2151 Clock: "); Serial.println(header.ym2151Clock);
-  Serial.print("VGM data Offset: 0x"); Serial.println(header.vgmDataOffset, HEX);
-  Serial.print("SPCM Interface: 0x"); Serial.println(header.spcmInterface, HEX);
-  Serial.println("...");
-  Serial.print("YM3812 Clock: 0x"); Serial.println(header.ym3812clock, HEX);
-  Serial.print("YMF262clock Clock: 0x"); Serial.println(header.ymf262clock, HEX);
-  Serial.print("SAA1099 Clock: 0x"); Serial.println(header.saa1099clock, HEX);
+  Serial2.print("Indent: 0x"); Serial2.println(header.indent, HEX);
+  Serial2.print("EoF: 0x"); Serial2.println(header.EoF, HEX);
+  Serial2.print("Version: 0x"); Serial2.println(header.version, HEX);
+  Serial2.print("SN Clock: "); Serial2.println(header.sn76489Clock);
+  Serial2.print("YM2413 Clock: "); Serial2.println(header.ym2413Clock);
+  Serial2.print("GD3 Offset: 0x"); Serial2.println(header.gd3Offset, HEX);
+  Serial2.print("Total Samples: "); Serial2.println(header.totalSamples);
+  Serial2.print("Loop Offset: 0x"); Serial2.println(header.loopOffset, HEX);
+  Serial2.print("Loop # Samples: "); Serial2.println(header.loopNumSamples);
+  Serial2.print("Rate: "); Serial2.println(header.rate);
+  Serial2.print("SN etc.: 0x"); Serial2.println(header.snX, HEX);
+  Serial2.print("YM2612 Clock: "); Serial2.println(header.ym2612Clock);
+  Serial2.print("YM2151 Clock: "); Serial2.println(header.ym2151Clock);
+  Serial2.print("VGM data Offset: 0x"); Serial2.println(header.vgmDataOffset, HEX);
+  Serial2.print("SPCM Interface: 0x"); Serial2.println(header.spcmInterface, HEX);
+  Serial2.println("...");
+  Serial2.print("YM3812 Clock: 0x"); Serial2.println(header.ym3812clock, HEX);
+  Serial2.print("YMF262clock Clock: 0x"); Serial2.println(header.ymf262clock, HEX);
+  Serial2.print("SAA1099 Clock: 0x"); Serial2.println(header.saa1099clock, HEX);
   #endif
 
   //Jump to VGM data start and compute loop location
@@ -384,8 +424,8 @@ bool startTrack(FileStrategy fileStrategy, String request)
   for(int i = 0; i<LOOP_PREBUF_SIZE; i++)
   {
     if(i % 32 == 0)
-      Serial.println();
-    Serial.print("0x"); Serial.print(loopPreBuffer[i], HEX); Serial.print(", ");
+      Serial2.println();
+    Serial2.print("0x"); Serial2.print(loopPreBuffer[i], HEX); Serial2.print(", ");
   }
   #endif
   return true;
@@ -399,13 +439,14 @@ bool vgmVerify()
     return false;
   }
   
-  Serial.println("VGM OK!");
+  Serial2.println("VGM OK!");
   readGD3();
-  Serial.println(gd3.enGameName);
-  Serial.println(gd3.enTrackName);
-  Serial.println(gd3.enSystemName);
-  Serial.println(gd3.releaseDate);
-  Serial.print("Version: "); Serial.println(header.version, HEX);
+  Serial2.println(gd3.enGameName);
+  Serial2.println(gd3.enTrackName);
+  Serial2.println(gd3.enSystemName);
+  Serial2.println(gd3.releaseDate);
+  drawOLEDTrackInfo();
+  Serial2.print("Version: "); Serial2.println(header.version, HEX);
   ready = true;
   return true;
 }
@@ -419,7 +460,7 @@ void readGD3()
   file.seek(header.gd3Offset+0x14);
   for(int i = 0; i<4; i++) {tag += uint32_t(file.read());} //Get GD3 tag bytes and add them up for an easy comparison.
   if(tag != 0xFE) //GD3 tag bytes do not sum up to the constant. No valid GD3 data detected. 
-  {Serial.print("INVALID GD3 SUM:"); Serial.println(tag); file.seekSet(prevLocation); return;}
+  {Serial2.print("INVALID GD3 SUM:"); Serial2.println(tag); file.seekSet(prevLocation); return;}
   for(int i = 0; i<4; i++) {file.read();} //Skip version info
   uint8_t v[4];
   file.readBytes(v,4);
@@ -482,7 +523,7 @@ void removeSVI() //Sometimes, Windows likes to place invisible files in our SD c
   if(n == "System Volume Information")
   {
       if(!nextFile.rmRfStar())
-        Serial.println("Failed to remove SVI file");
+        Serial2.println("Failed to remove SVI file");
   }
   SD.vwd()->rewind();
   nextFile.close();
@@ -496,7 +537,7 @@ void prebufferLoop()
   file.readBytes(loopPreBuffer, LOOP_PREBUF_SIZE);
   file.seekSet(prevPos);
   #if DEBUG
-  Serial.print("FIRST LOOP BYTE: "); Serial.println(loopPreBuffer[0], HEX);
+  Serial2.print("FIRST LOOP BYTE: "); Serial2.println(loopPreBuffer[0], HEX);
   #endif
 }
 
@@ -508,7 +549,7 @@ void injectPrebuffer()
   file.seekSet(header.loopOffset+LOOP_PREBUF_SIZE);
   cmdPos = LOOP_PREBUF_SIZE-1;
   #if DEBUG
-  Serial.println(file.curPosition());
+  Serial2.println(file.curPosition());
   #endif
 }
 
@@ -662,14 +703,14 @@ uint16_t parseVGM()
   return 0;
 }
 
-//Poll the serial port
+//Poll the Serial2 port
 void handleSerialIn()
 {
   bool newTrack = false;
-  while(Serial.available())
+  while(Serial2.available())
   {
-    char serialCmd = Serial.read();
-    switch(serialCmd)
+    char Serial2Cmd = Serial2.read();
+    switch(Serial2Cmd)
     {
       case '+':
         newTrack = startTrack(NEXT);
@@ -681,26 +722,26 @@ void handleSerialIn()
         newTrack = startTrack(RND);
       break;
       case '/':
-        playMode = SHUFFLE;
+        playMode = PlayMode::SHUFFLE;
         drawOLEDTrackInfo();
       break;
       case '.':
-        playMode = LOOP;
+        playMode = PlayMode::LOOP;
         drawOLEDTrackInfo();
       break;
       case '?':
-        Serial.println(gd3.enGameName);
-        Serial.println(gd3.enTrackName);
-        Serial.println(gd3.enSystemName);
-        Serial.println(gd3.releaseDate);
-        Serial.print("Version: "); Serial.println(header.version, HEX);
+        Serial2.println(gd3.enGameName);
+        Serial2.println(gd3.enTrackName);
+        Serial2.println(gd3.enSystemName);
+        Serial2.println(gd3.releaseDate);
+        Serial2.print("Version: "); Serial2.println(header.version, HEX);
       break;
       case '!':
 
       break;
       case 'r':
       {
-        String req = Serial.readString();
+        String req = Serial2.readString();
         req.remove(0, 1); //Remove colon character
         newTrack = startTrack(REQUEST, req);
       }
@@ -777,12 +818,12 @@ void loop()
     waitSamples += parseVGM();
     return;
   }
-  if(loopCount >= maxLoops && playMode != LOOP)
+  if(loopCount >= maxLoops && playMode != PlayMode::LOOP)
   {
     bool newTrack = false;
-    if(playMode == SHUFFLE)
+    if(playMode == PlayMode::SHUFFLE)
       newTrack = startTrack(RND);
-    if(playMode == IN_ORDER)
+    if(playMode == PlayMode::IN_ORDER)
       newTrack = startTrack(NEXT);
     if(newTrack)
     {
@@ -790,14 +831,14 @@ void loop()
       prepareChips();
     }
   }
-  if(Serial.available() > 0)
+  if(Serial2.available() > 0)
     handleSerialIn();
   //handleButtons();
   #if DEBUG
   if(commandFailed)
   {
     commandFailed = false;
-    Serial.print("CMD ERROR: "); Serial.println(failedCmd, HEX);
+    Serial2.print("CMD ERROR: "); Serial2.println(failedCmd, HEX);
   }
   #endif
 }

@@ -18,17 +18,17 @@ void OPL3::Send(uint8_t addr, uint8_t data, bool setA1)
     GPIOC->regs->BSRR = (1U << 14) << (16 * !setA1);    //A1 setA1
     GPIOC->regs->ODR &= ~(0x2000);                      //A0 LOW
     Write(addr);
-    GPIOB->regs->ODR &= ~(0x40);                        //WR LOW
+    GPIOB->regs->ODR &= ~(0x20);                        //WR LOW
     GPIOA->regs->ODR |= 0x200;                          //CS LOW (OPEN_DRAIN : HIGH)
     delayMicroseconds(2);
-    GPIOB->regs->ODR |= 0x40;                           //WR HIGH
+    GPIOB->regs->ODR |= 0x20;                           //WR HIGH
     GPIOA->regs->ODR &= ~(0x200);                       //CS HIGH (OPEN_DRAIN : LOW)
     GPIOC->regs->ODR |= 0x2000;                         //A0 HIGH
     Write(data);
-    GPIOB->regs->ODR &= ~(0x40);                        //WR LOW
+    GPIOB->regs->ODR &= ~(0x20);                        //WR LOW
     GPIOA->regs->ODR |= 0x200;                          //CS LOW (OPEN_DRAIN : HIGH)
     delayMicroseconds(2);
-    GPIOB->regs->ODR |= 0x40;                           //WR HIGH
+    GPIOB->regs->ODR |= 0x20;                           //WR HIGH
     GPIOA->regs->ODR &= ~(0x200);                       //CS HIGH (OPEN_DRAIN : LOW)
 }
 
@@ -49,19 +49,18 @@ void OPL3::Reset()
 
 OPL3::OPL3()
 {
+    //disableDebugPorts();
     pinMode(IC, OUTPUT_OPEN_DRAIN);
     pinMode(CS, OUTPUT_OPEN_DRAIN);
     pinMode(A0, OUTPUT);
     pinMode(A1, OUTPUT);
     pinMode(WR, OUTPUT);
-    pinMode(RD, OUTPUT);
 
     digitalWrite(IC, HIGH);
     digitalWrite(CS, HIGH);
     digitalWrite(A0, HIGH);
     digitalWrite(A1, HIGH);
     digitalWrite(WR, HIGH);
-    digitalWrite(RD, HIGH);
 
     pinMode(PB8, OUTPUT);
     pinMode(PB9, OUTPUT);
@@ -76,23 +75,3 @@ OPL3::OPL3()
 OPL3::~OPL3()
 {
 }
-
-/*
-PB8   -   D0
-PB9   -   D1
-PB10 -   D2
-PB11 -   D3
-PB12 -   D4
-PB13 -   D5
-PB14 -   D6
-PB15 -   D7
-
-PC13   -   A0
-PC14   -   A1
-
-PB6   -  WR
-PB7   -  RD
-
-PA8   -   IC
-PA9 -   CS
-*/
