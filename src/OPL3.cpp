@@ -19,17 +19,17 @@ void OPL3::Send(uint8_t addr, uint8_t data, bool setA1)
     GPIOC->regs->ODR &= ~(0x2000);                      //A0 LOW
     Write(addr);
     GPIOB->regs->ODR &= ~(0x20);                        //WR LOW
-    GPIOA->regs->ODR |= 0x200;                          //CS LOW (OPEN_DRAIN : HIGH)
+    GPIOA->regs->ODR |= 0x100;                          //CS LOW (OPEN_DRAIN : HIGH)
     delayMicroseconds(2);
     GPIOB->regs->ODR |= 0x20;                           //WR HIGH
-    GPIOA->regs->ODR &= ~(0x200);                       //CS HIGH (OPEN_DRAIN : LOW)
+    GPIOA->regs->ODR &= ~(0x100);                       //CS HIGH (OPEN_DRAIN : LOW)
     GPIOC->regs->ODR |= 0x2000;                         //A0 HIGH
     Write(data);
     GPIOB->regs->ODR &= ~(0x20);                        //WR LOW
-    GPIOA->regs->ODR |= 0x200;                          //CS LOW (OPEN_DRAIN : HIGH)
+    GPIOA->regs->ODR |= 0x100;                          //CS LOW (OPEN_DRAIN : HIGH)
     delayMicroseconds(2);
     GPIOB->regs->ODR |= 0x20;                           //WR HIGH
-    GPIOA->regs->ODR &= ~(0x200);                       //CS HIGH (OPEN_DRAIN : LOW)
+    GPIOA->regs->ODR &= ~(0x100);                       //CS HIGH (OPEN_DRAIN : LOW)
 }
 
  void OPL3::SetOPLMode(bool isOPL3)
@@ -42,14 +42,13 @@ void OPL3::Send(uint8_t addr, uint8_t data, bool setA1)
 void OPL3::Reset()
 {
     digitalWrite(IC, LOW);
-    delayMicroseconds(25);
+    delayMicroseconds(100);
     digitalWrite(IC, HIGH);
-    delayMicroseconds(25);
+    delayMicroseconds(100);
 }
 
 OPL3::OPL3()
 {
-    //disableDebugPorts();
     pinMode(IC, OUTPUT_OPEN_DRAIN);
     pinMode(CS, OUTPUT_OPEN_DRAIN);
     pinMode(A0, OUTPUT);
