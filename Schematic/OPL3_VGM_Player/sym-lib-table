@@ -1,4 +1,5 @@
 (sym_lib_table
   (lib (name ch340)(type Legacy)(uri C:/Users/Aidan/Documents/Arduino/STM32_OPL3/Schematic/OPL3_VGM_Player/libs/ch340.lib)(options "")(descr ""))
   (lib (name OPL3)(type Legacy)(uri C:/Users/Aidan/Documents/Arduino/STM32_OPL3/Schematic/OPL3_VGM_Player/libs/OPL3.lib)(options "")(descr ""))
+  (lib (name oled)(type Legacy)(uri C:/Users/Aidan/Documents/Arduino/STM32_OPL3/Schematic/OPL3_VGM_Player/libs/oled.lib)(options "")(descr ""))
 )

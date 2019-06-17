@@ -458,6 +458,7 @@ bool vgmVerify()
   Serial1.println(gd3.releaseDate);
   drawOLEDTrackInfo();
   Serial1.print("Version: "); Serial1.println(header.version, HEX);
+  delay(100);
   ready = true;
   return true;
 }
