@@ -1,0 +1,46 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# 35RAPC4BHN2
+#
+DEF 35RAPC4BHN2 J 0 40 Y N 1 L N
+F0 "J" -201 221 50 H V L BNN
+F1 "35RAPC4BHN2" -201 -301 50 H V L BNN
+F2 "SWITCHCRAFT_35RAPC4BHN2" 0 0 50 H I L BNN
+F3 "SC1459-ND" 0 0 50 H I L BNN
+F4 "Switchcraft" 0 0 50 H I L BNN
+F5 "Conn 3.5MM Stereo Jack F 5 POS Solder RA Thru-Hole 5 Terminal 1 Port" 0 0 50 H I L BNN
+F6 "https://www.digikey.com/product-detail/en/switchcraft-inc/35RAPC4BHN2/SC1459-ND/1288690?utm_source=snapeda&utm_medium=aggregator&utm_campaign=symbol" 0 0 50 H I L BNN
+F7 "35RAPC4BHN2" 0 0 50 H I L BNN
+F8 "None" 0 0 50 H I L BNN
+DRAW
+P 2 0 0 6 -50 -200 0 -150 N
+P 2 0 0 6 0 -150 50 -200 N
+P 2 0 0 6 50 -200 100 -200 N
+P 2 0 0 6 100 100 -50 100 N
+P 2 0 0 6 -50 100 -100 50 N
+P 2 0 0 6 -100 50 -150 100 N
+P 2 0 0 6 100 200 -200 200 N
+S -251 -201 -200 199 0 0 0 F
+P 2 0 0 6 80 -170 100 -200 N
+P 2 0 0 6 100 -200 120 -170 N
+P 2 0 0 6 120 -170 100 -170 N
+P 2 0 0 6 100 -170 80 -170 N
+P 2 0 0 6 100 -170 100 -100 N
+P 2 0 0 6 150 100 100 100 N
+P 2 0 0 6 120 70 100 100 N
+P 2 0 0 6 100 100 80 70 N
+P 2 0 0 6 80 70 100 70 N
+P 2 0 0 6 100 70 120 70 N
+P 2 0 0 6 100 70 100 0 N
+X 1 1 300 200 200 L 40 40 0 0 P 
+X 3 3 300 100 200 L 40 40 0 0 P 
+X 11 11 300 0 200 L 40 40 0 0 P 
+X 10 10 300 -100 200 L 40 40 0 0 P 
+X 2 2 300 -200 200 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
