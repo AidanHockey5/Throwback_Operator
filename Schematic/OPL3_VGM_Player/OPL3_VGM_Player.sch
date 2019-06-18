@@ -206,17 +206,6 @@ RX
 Text GLabel 3150 8400 2    50   Input ~ 0
 TX
 $Comp
-L power:VCC #PWR06
-U 1 1 5D059E10
-P 3150 8500
-F 0 "#PWR06" H 3150 8350 50  0001 C CNN
-F 1 "VCC" V 3167 8628 50  0000 L CNN
-F 2 "" H 3150 8500 50  0001 C CNN
-F 3 "" H 3150 8500 50  0001 C CNN
-	1    3150 8500
-	0    1    1    0   
-$EndComp
-$Comp
 L power:GND #PWR02
 U 1 1 5D059FFB
 P 1850 8450
@@ -1876,7 +1865,7 @@ F 3 "" H 14650 6550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L conn:Audio-Jack-3 J5
+L conn_custom:Audio-Jack-3 J5
 U 1 1 5D14207F
 P 14550 7350
 F 0 "J5" H 14526 7675 50  0000 C CNN
@@ -1925,5 +1914,60 @@ F 2 "" H 1900 2100 50  0001 C CNN
 F 3 "" H 1900 2100 50  0001 C CNN
 	1    1900 2100
 	0    -1   -1   0   
+$EndComp
+$Comp
+L mechanical:MountingHole H1
+U 1 1 5D0CCC85
+P 4450 10150
+F 0 "H1" H 4550 10196 50  0000 L CNN
+F 1 "M3" H 4550 10105 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 4450 10150 50  0001 C CNN
+F 3 "~" H 4450 10150 50  0001 C CNN
+	1    4450 10150
+	1    0    0    -1  
+$EndComp
+$Comp
+L mechanical:MountingHole H2
+U 1 1 5D0CCDCD
+P 4450 10350
+F 0 "H2" H 4550 10396 50  0000 L CNN
+F 1 "M3" H 4550 10305 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 4450 10350 50  0001 C CNN
+F 3 "~" H 4450 10350 50  0001 C CNN
+	1    4450 10350
+	1    0    0    -1  
+$EndComp
+$Comp
+L mechanical:MountingHole H3
+U 1 1 5D0CCE57
+P 4450 10550
+F 0 "H3" H 4550 10596 50  0000 L CNN
+F 1 "M3" H 4550 10505 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 4450 10550 50  0001 C CNN
+F 3 "~" H 4450 10550 50  0001 C CNN
+	1    4450 10550
+	1    0    0    -1  
+$EndComp
+$Comp
+L mechanical:MountingHole H4
+U 1 1 5D0CCEE7
+P 4450 10750
+F 0 "H4" H 4550 10796 50  0000 L CNN
+F 1 "M3" H 4550 10705 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 4450 10750 50  0001 C CNN
+F 3 "~" H 4450 10750 50  0001 C CNN
+	1    4450 10750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0111
+U 1 1 5D0CF4B8
+P 3150 8500
+F 0 "#PWR0111" H 3150 8350 50  0001 C CNN
+F 1 "+5V" H 3165 8673 50  0000 C CNN
+F 2 "" H 3150 8500 50  0001 C CNN
+F 3 "" H 3150 8500 50  0001 C CNN
+	1    3150 8500
+	0    1    1    0   
 $EndComp
 $EndSCHEMATC

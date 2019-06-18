@@ -87,26 +87,6 @@ X RXD 9 700 -100 200 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# conn_Audio-Jack-3
-#
-DEF conn_Audio-Jack-3 J 0 40 Y Y 1 F N
-F0 "J" -50 175 50 H V C CNN
-F1 "conn_Audio-Jack-3" 100 -70 50 H V C CNN
-F2 "" 250 100 50 H I C CNN
-F3 "" 250 100 50 H I C CNN
-DRAW
-T 0 -25 50 30 0 0 0 1 Normal 0 C C
-T 0 -100 50 30 0 0 0 2 Normal 0 C C
-S -185 125 100 -25 0 1 10 f
-S -175 0 -205 100 0 1 0 F
-P 4 0 1 10 -50 0 -25 25 0 0 100 0 N
-P 4 0 1 10 100 100 -75 100 -100 75 -125 100 N
-X ~ 1 200 0 100 L 50 50 1 1 P
-X ~ 2 200 100 100 L 50 50 1 1 P
-X ~ 3 -200 -100 100 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # conn_Conn_01x04
 #
 DEF conn_Conn_01x04 J 0 40 Y N 1 F N
@@ -229,6 +209,26 @@ X D+ 3 300 0 100 L 50 50 1 1 P
 X ID 4 300 -200 100 L 50 50 1 1 P
 X GND 5 0 -400 100 U 50 50 1 1 W
 X Shield 6 -100 -400 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# conn_custom_Audio-Jack-3
+#
+DEF conn_custom_Audio-Jack-3 J 0 40 Y Y 1 F N
+F0 "J" -50 175 50 H V C CNN
+F1 "conn_custom_Audio-Jack-3" 100 -70 50 H V C CNN
+F2 "" 250 100 50 H I C CNN
+F3 "" 250 100 50 H I C CNN
+DRAW
+T 0 -100 50 30 0 0 0 2 Normal 0 C C
+T 0 -25 50 30 0 0 0 3 Normal 0 C C
+S -185 125 100 -25 0 1 10 f
+S -175 0 -205 100 0 1 0 F
+P 4 0 1 10 -50 0 -25 25 0 0 100 0 N
+P 4 0 1 10 100 100 -75 100 -100 75 -125 100 N
+X ~ 1 -200 -100 100 U 50 50 1 1 P
+X ~ 2 200 100 100 L 50 50 1 1 P
+X ~ 3 200 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -425,6 +425,21 @@ X - 9 -300 -100 100 R 50 50 3 1 I
 X + 12 -300 100 100 R 50 50 4 1 I
 X - 13 -300 -100 100 R 50 50 4 1 I
 X ~ 14 300 0 100 L 50 50 4 1 O
+ENDDRAW
+ENDDEF
+#
+# mechanical_MountingHole
+#
+DEF mechanical_MountingHole H 0 40 Y Y 1 F N
+F0 "H" 0 200 50 H V C CNN
+F1 "mechanical_MountingHole" 0 125 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ MountingHole*
+$ENDFPLIST
+DRAW
+C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #
