@@ -3,4 +3,5 @@
   (lib (name custom_inductors)(type KiCad)(uri ${KIPRJMOD}/libs/custom_inductors.pretty)(options "")(descr ""))
   (lib (name customMicroSD)(type KiCad)(uri ${KIPRJMOD}/libs/customMicroSD.pretty)(options "")(descr ""))
   (lib (name oled_display)(type KiCad)(uri ${KIPRJMOD}/libs/oled_display.pretty)(options "")(descr ""))
+  (lib (name art)(type KiCad)(uri ${KIPRJMOD}/art/art.pretty)(options "")(descr ""))
 )
