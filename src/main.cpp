@@ -165,12 +165,11 @@ void setup()
 void setClock(uint32_t frq)
 {
   uint8_t tArr = 0;
-  uint8_t tPsc = 0;
   if(frq == 0 || frq == OPL_DEFAULT_CLOCK || frq == NTSC_COLORBURST)
   {
     tArr = 4;
   }
-  else //Adjust the OPL3 clock in proportion to OPL1/2 soundchips that have other clock rates than colorburst
+  else //Adjust the OPL3 clock in proportion to OPL1/2 soundchips that have clock rates other than colorburst
   {
     double targetClock = 0;
     targetClock = (double)frq / (double)NTSC_COLORBURST;
@@ -180,7 +179,7 @@ void setClock(uint32_t frq)
   }
   
   TIMER2_BASE->ARR = tArr; // Set Auto reload value
-  TIMER2_BASE->PSC = tPsc; // Set Prescalar value
+  TIMER2_BASE->PSC = 0; // Set Prescalar value
 }
 
 void stopISR()
