@@ -18,7 +18,7 @@ uint8_t failedCmd = 0x00;
 //Prototypes
 void setup();
 void loop();
-void startClocks();
+void setClock(uint32_t frq);
 void handleSerialIn();
 void tick();
 void removeSVI();
@@ -41,6 +41,8 @@ uint32_t readSD32();
 uint16_t parseVGM();
 
 //Sound Chips
+#define OPL_DEFAULT_CLOCK 14318180
+#define NTSC_COLORBURST 3579545
 OPL3 opl;
 
 //SD & File Streaming
@@ -91,7 +93,23 @@ void setup()
   //DISABLE DEBUG BY DEFAULT IN PCB VERSION!!!
   disableDebugPorts();
 
-  startClocks();
+  //Output OPL3 clock on PA1
+  /****configure clocks for PORTA & TIMER2********/
+  RCC_BASE->APB2ENR |= RCC_APB2ENR_IOPAEN; // enable port A clock
+  RCC_BASE->APB1ENR |= RCC_APB1ENR_TIM2EN; // enable clock for timer 2
+
+  /* Porta Pin 1 &2 as alternate function output Push pull */
+  GPIOA->regs->CRL = 0x000000BB;  
+  /* Output Compare Mode, ENABLE Preload,PWM  mode:2*/
+  TIMER2_BASE->CCMR1 = 0x00007800;
+  TIMER2_BASE->EGR |= 0x00000001;     // ENABLE update generation
+  /*CC2E : channel 2 enabled; polarity : active high*/      
+  TIMER2_BASE->CCER = 0x00000010; 
+  TIMER2_BASE->CR1 |= 0x00000080;     // Auto preload ENABLE
+  TIMER2_BASE->CR1 |= 0x00000001;     // ENABLE Timer counter  
+  TIMER2_BASE->CCR2 = 2;              // SET duty cycle to 50%
+
+  setClock(OPL_DEFAULT_CLOCK);
   playMode = PlayMode::SHUFFLE;
   u8g2.begin();
   u8g2.setFont(u8g2_font_fub11_tf);
@@ -144,25 +162,25 @@ void setup()
   prepareChips();
 }
 
-void startClocks()
+void setClock(uint32_t frq)
 {
-  //Output 14.32MHz clock on PA1
-  /****configure clocks for PORTA & TIMER2********/
-  RCC_BASE->APB2ENR |= RCC_APB2ENR_IOPAEN; // enable port A clock
-  RCC_BASE->APB1ENR |= RCC_APB1ENR_TIM2EN; // enable clock for timer 2
-
-  /* Porta Pin 1 &2 as alternate function output Push pull */
-  GPIOA->regs->CRL = 0x000000BB;  
-  TIMER2_BASE->ARR = 4; // Set Auto reload value
-  TIMER2_BASE->PSC = 0; // Set Prescalar value
-  /* Output Compare Mode, ENABLE Preload,PWM  mode:2*/
-  TIMER2_BASE->CCMR1 = 0x00007800;
-  TIMER2_BASE->EGR |= 0x00000001;     // ENABLE update generation
-  /*CC2E : channel 2 enabled; polarity : active high*/      
-  TIMER2_BASE->CCER = 0x00000010; 
-  TIMER2_BASE->CR1 |= 0x00000080;     // Auto preload ENABLE
-  TIMER2_BASE->CR1 |= 0x00000001;     // ENABLE Timer counter  
-  TIMER2_BASE->CCR2 = 2;              // SET duty cycle to 50%
+  uint8_t tArr = 0;
+  uint8_t tPsc = 0;
+  if(frq == 0 || frq == OPL_DEFAULT_CLOCK || frq == NTSC_COLORBURST)
+  {
+    tArr = 4;
+  }
+  else //Adjust the OPL3 clock in proportion to OPL1/2 soundchips that have other clock rates than colorburst
+  {
+    double targetClock = 0;
+    targetClock = (double)frq / (double)NTSC_COLORBURST;
+    targetClock *= OPL_DEFAULT_CLOCK;
+    targetClock = F_CPU / (targetClock-1);
+    tArr = (uint8_t)round(targetClock);
+  }
+  
+  TIMER2_BASE->ARR = tArr; // Set Auto reload value
+  TIMER2_BASE->PSC = tPsc; // Set Prescalar value
 }
 
 void stopISR()
@@ -212,13 +230,21 @@ void drawOLEDTrackInfo()
 
 void prepareChips()
 {
-  if(header.ym3812clock > 0)
+  if(header.ym3526clock > 0)
   {
+    setClock(header.ym3526clock);
+    Serial.println("OPL1 MODE");
+    opl.SetOPLMode(0); //OPL1 and 2 mode
+  }
+  else if(header.ym3812clock > 0)
+  {
+    setClock(header.ym3812clock);
     Serial.println("OPL2 MODE");
-    opl.SetOPLMode(0); //OPL2 mode
+    opl.SetOPLMode(0); //OPL1 and 2 mode
   }
   else if(header.ymf262clock > 0)
   {
+    setClock(OPL_DEFAULT_CLOCK);
     Serial.println("OPL3 MODE");
     opl.SetOPLMode(1); //OPL3 mode
   }
@@ -675,12 +701,7 @@ uint16_t parseVGM()
   switch(cmd)
   {
     case 0x5A:
-    {
-      uint8_t a = readBuffer();
-      uint8_t d = readBuffer();
-      opl.Send(a, d, 0);
-      return 1;
-    }
+    case 0x5B:
     case 0x5E:
     {
       uint8_t a = readBuffer();
