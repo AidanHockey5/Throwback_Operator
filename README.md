@@ -50,4 +50,13 @@ The on-board microcontroller is a STM32F103C8T6, the same microcontroller found 
 Therefore, programming the Throwback Operator boards is fairly similar.
 The firmware was built with Visual Studio Code with the PlatformIO extension installed.
 
-There is an ST-LINK header on the Throwback Operator board, but you can re-program the microcontroller over serial using just a USB cable if you do not have an ST-LINK programmer.
+Programming over Serial:
+* Connect your Throwback Operator board to your computers USB port.
+* Ensure that you have the CH340 driver installed. Windows 10 should have this automatically, otherwise, [grab the driver here](https://sparks.gogo.co.nz/ch340.html)
+* Ensure nothing else is currently connected to your board over serial.
+* On the top of the board, you will see two black jumpers. By default, these jumpers are both in the "Down" position (middle pin and bottom pin jumped).
+* Remove the left jumper and reattach it to the "Up" position (middle pin and top pin jumped).
+* Press the RESET button on the Throwback Operator board
+* In VS Code (or whatever your IDE of choice is), navigate to the `platformio.ini` and ensure the upload protocol is set to `serial`
+* Hit the upload button (Arrow icon in the bottom bar of VS code)
+* Once your code is uploaded, replace the left jumper to its original "Down" position 
