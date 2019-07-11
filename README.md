@@ -6,7 +6,7 @@ There is no emulation here. This is the real chip.
 
 Included in this repository is the complete schematic, firmware source, and KiCAD board files. Feel free to make your own board, but please don't resell them :)
 
-If you would like to purchase an official complete Throwback Operator board, you can order one from me here: https://www.aidanlawrence.com
+If you would like to purchase an official complete Throwback Operator board, you can order one from me here: https://www.aidanlawrence.com/product/throwback-operator/
 
 # Information About the Main Sound Chips and VGM
 
