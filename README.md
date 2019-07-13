@@ -22,6 +22,9 @@ VGM stands for Video Game Music, and it is a 44.1KHz logging format that stores 
 
 http://www.smspower.org/uploads/Music/vgmspec170.txt?sid=58da937e68300c059412b536d4db2ca0
 
+# Schematic
+![Schematic](https://github.com/AidanHockey5/Throwback_Operator/raw/master/Schematic/OPL3_VGM_Player/OPL3_VGM_Player.png)
+
 # SD Card Information
 
 The Throwback Operator accepts MicroSD cards formatted as FAT32. Your SD card must only contain uncompressed .vgm files. VGZ FILES WILL NOT WORK! You may download .vgz files and use 7zip to extract the uncompressed file out of them. Vgm files on the SD card do not need to have the .vgm extension. As long as they contain valid, uncompressed vgm data, they will be read by the program regardless of their name. You can find VGM files by Googling "myGameName VGM," or by checking out sites like http://vgmrips.net/packs/
