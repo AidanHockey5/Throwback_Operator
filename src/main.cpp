@@ -22,7 +22,7 @@ void loop();
 void setClock(uint32_t frq);
 void handleSerialIn();
 void tick();
-void removeSVI();
+void removeMeta();
 void prebufferLoop();
 void injectPrebuffer();
 void fillBuffer();
@@ -141,7 +141,7 @@ void setup()
   pinMode(option_btn, INPUT_PULLUP);
 
   //SD
-  while(!SD.begin(PA4, SPI_HALF_SPEED)) //SD_SCK_HZ(F_CPU/2)))
+  while(!SD.begin(PA4, SPI_HALF_SPEED)) 
   {
     SD.begin(PA4, SPI_HALF_SPEED);
     delay(100);
@@ -153,16 +153,17 @@ void setup()
   }
 
   //Prepare files
-  removeSVI();
+  removeMeta();
 
   File countFile;
   while ( countFile.openNext( SD.vwd(), O_READ ))
   {
     countFile.close();
+    countFile.getName(fileName, MAX_FILE_NAME_SIZE);
+    
     numberOfFiles++;
   }
   countFile.close();
-  numberOfFiles--;
   SD.vwd()->rewind();
 
   //44.1KHz tick
@@ -585,20 +586,30 @@ void readGD3()
   file.seekSet(prevLocation);
 }
 
-void removeSVI() //Sometimes, Windows likes to place invisible files in our SD card without asking... GTFO!
+void removeMeta() //Sometimes, Windows likes to place invisible files in our SD card without asking... GTFO!
 {
-  File nextFile;
-  nextFile.openNext(SD.vwd(), O_READ);
-  char name[MAX_FILE_NAME_SIZE];
-  nextFile.getName(name, MAX_FILE_NAME_SIZE);
-  String n = String(name);
-  if(n == "System Volume Information" || n.startsWith("."))
+  File tmpFile;
+  while ( tmpFile.openNext( SD.vwd(), O_READ ))
   {
-      if(!nextFile.rmRfStar())
-        Serial.println("Failed to remove SVI file");
+    memset(fileName, 0x00, MAX_FILE_NAME_SIZE);
+    tmpFile.getName(fileName, MAX_FILE_NAME_SIZE);
+    if(fileName[0]=='.')
+    {
+      if(!SD.remove(fileName))
+      if(!tmpFile.rmRfStar())
+      {
+        Serial.print("FAILED TO DELETE META FILE"); Serial.println(fileName);
+      }
+    }
+    if(String(fileName) == "System Volume Information")
+    {
+      if(!tmpFile.rmRfStar())
+        Serial.println("FAILED TO REMOVE SVI");
+    }
+    tmpFile.close();
   }
+  tmpFile.close();
   SD.vwd()->rewind();
-  nextFile.close();
 }
 
 //Keep a small cache of commands right at the loop point to prevent excessive SD seeking lag
