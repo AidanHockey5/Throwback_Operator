@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <libmaple/iwdg.h>
 #include "OPL3.h"
 #include <SPI.h>
 #include "SdFat.h"
@@ -84,6 +85,9 @@ bool isOledOn = true;
 
 void setup()
 {
+  //init watchdog timer to reset on crash
+  iwdg_init(IWDG_PRE_32, INT16_MAX);
+
   //For breadboard prototypes only.
   //Use ENABLE_DEBUG_PORT_PIN as a jumper to enable and disable the SWD pins
   //pinMode(ENABLE_DEBUG_PORT_PIN, INPUT);
@@ -111,12 +115,17 @@ void setup()
 
   setClock(OPL_DEFAULT_CLOCK);
   playMode = PlayMode::SHUFFLE;
+
+  delay(100);
+
   u8g2.begin();
   u8g2.setFont(u8g2_font_fub11_tf);
   u8g2.clearBuffer();
   u8g2.drawStr(0,16,"Aidan Lawrence");
   u8g2.drawStr(0,32,"OPL3, 2019");
   u8g2.sendBuffer();
+
+  delay(250);
 
   //DEBUG
   pinMode(DEBUG_LED, OUTPUT);
@@ -132,13 +141,15 @@ void setup()
   pinMode(option_btn, INPUT_PULLUP);
 
   //SD
-  if(!SD.begin(PA4, SD_SCK_HZ(F_CPU/2)))
+  while(!SD.begin(PA4, SPI_HALF_SPEED)) //SD_SCK_HZ(F_CPU/2)))
   {
+    SD.begin(PA4, SPI_HALF_SPEED);
+    delay(100);
     u8g2.clearBuffer();
     u8g2.drawStr(0,16,"SD Mount");
     u8g2.drawStr(0,32,"failed!");
     u8g2.sendBuffer();
-    while(true){Serial.println("SD MOUNT FAILED"); digitalWrite(DEBUG_LED, HIGH); delay(1000);}
+    Serial.println("SD MOUNT FAILED");
   }
 
   //Prepare files
@@ -151,6 +162,7 @@ void setup()
     numberOfFiles++;
   }
   countFile.close();
+  numberOfFiles--;
   SD.vwd()->rewind();
 
   //44.1KHz tick
@@ -492,7 +504,7 @@ bool startTrack(FileStrategy fileStrategy, String request)
 
 bool vgmVerify()
 {
-  if(header.indent != 0x206D6756) //VGM. Indent check
+  if(header.indent != 0x206D6756 || String(fileName).startsWith(".")) //VGM. Indent check
   {
     startTrack(NEXT);
     return false;
@@ -580,7 +592,7 @@ void removeSVI() //Sometimes, Windows likes to place invisible files in our SD c
   char name[MAX_FILE_NAME_SIZE];
   nextFile.getName(name, MAX_FILE_NAME_SIZE);
   String n = String(name);
-  if(n == "System Volume Information")
+  if(n == "System Volume Information" || n.startsWith("."))
   {
       if(!nextFile.rmRfStar())
         Serial.println("Failed to remove SVI file");
@@ -896,4 +908,5 @@ void loop()
     Serial.print("CMD ERROR: "); Serial.println(failedCmd, HEX);
   }
   #endif
+  iwdg_feed();
 }
