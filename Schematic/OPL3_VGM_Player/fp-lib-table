@@ -4,4 +4,5 @@
   (lib (name customMicroSD)(type KiCad)(uri ${KIPRJMOD}/libs/customMicroSD.pretty)(options "")(descr ""))
   (lib (name oled_display)(type KiCad)(uri ${KIPRJMOD}/libs/oled_display.pretty)(options "")(descr ""))
   (lib (name art)(type KiCad)(uri ${KIPRJMOD}/art/art.pretty)(options "")(descr ""))
+  (lib (name "Boom Precision Elec PJ-307C")(type KiCad)(uri "${KIPRJMOD}/libs/Boom Precision Elec PJ-307C")(options "")(descr ""))
 )
