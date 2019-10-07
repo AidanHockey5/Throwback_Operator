@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# OPL3_VGM_Player-rescue_128x32_I2C_OLED-oled
+# 128x32_I2C_OLED-oled
 #
-DEF OPL3_VGM_Player-rescue_128x32_I2C_OLED-oled DS 0 40 Y Y 1 F N
+DEF 128x32_I2C_OLED-oled DS 0 40 Y Y 1 F N
 F0 "DS" 300 -650 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_128x32_I2C_OLED-oled" 550 -750 50 H V C CNN
+F1 "128x32_I2C_OLED-oled" 550 -750 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -21,11 +21,11 @@ X GND 4 -200 -300 200 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_CH340E-ch340
+# CH340E-ch340
 #
-DEF OPL3_VGM_Player-rescue_CH340E-ch340 U 0 40 Y Y 1 F N
+DEF CH340E-ch340 U 0 40 Y Y 1 F N
 F0 "U" 250 200 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_CH340E-ch340" 250 100 50 H V C CNN
+F1 "CH340E-ch340" 250 100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -43,11 +43,11 @@ X RXD 9 700 -100 200 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_CP_Small-device
+# CP_Small-device
 #
-DEF OPL3_VGM_Player-rescue_CP_Small-device C 0 10 N N 1 F N
+DEF CP_Small-device C 0 10 N N 1 F N
 F0 "C" 10 70 50 H V L CNN
-F1 "OPL3_VGM_Player-rescue_CP_Small-device" 10 -80 50 H V L CNN
+F1 "CP_Small-device" 10 -80 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -63,11 +63,11 @@ X ~ 2 0 -100 73 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_C_Small-device
+# C_Small-device
 #
-DEF OPL3_VGM_Player-rescue_C_Small-device C 0 10 N N 1 F N
+DEF C_Small-device C 0 10 N N 1 F N
 F0 "C" 10 70 50 H V L CNN
-F1 "OPL3_VGM_Player-rescue_C_Small-device" 10 -80 50 H V L CNN
+F1 "C_Small-device" 10 -80 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -81,11 +81,11 @@ X ~ 2 0 -100 80 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_Conn_01x04-conn
+# Conn_01x04-conn
 #
-DEF OPL3_VGM_Player-rescue_Conn_01x04-conn J 0 40 Y N 1 F N
+DEF Conn_01x04-conn J 0 40 Y N 1 F N
 F0 "J" 0 200 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_Conn_01x04-conn" 0 -300 50 H V C CNN
+F1 "Conn_01x04-conn" 0 -300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -109,11 +109,11 @@ X Pin_4 4 -200 -200 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_Conn_02x03_Odd_Even-conn
+# Conn_02x03_Odd_Even-conn
 #
-DEF OPL3_VGM_Player-rescue_Conn_02x03_Odd_Even-conn J 0 40 Y N 1 F N
+DEF Conn_02x03_Odd_Even-conn J 0 40 Y N 1 F N
 F0 "J" 50 200 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_Conn_02x03_Odd_Even-conn" 50 -200 50 H V C CNN
+F1 "Conn_02x03_Odd_Even-conn" 50 -200 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -141,11 +141,11 @@ X Pin_6 6 300 -100 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_Crystal_Small-device
+# Crystal_Small-device
 #
-DEF OPL3_VGM_Player-rescue_Crystal_Small-device Y 0 40 N N 1 F N
+DEF Crystal_Small-device Y 0 40 N N 1 F N
 F0 "Y" 0 100 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_Crystal_Small-device" 0 -100 50 H V C CNN
+F1 "Crystal_Small-device" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -160,11 +160,11 @@ X 2 2 100 0 50 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_L-device
+# L-device
 #
-DEF OPL3_VGM_Player-rescue_L-device L 0 40 N N 1 F N
+DEF L-device L 0 40 N N 1 F N
 F0 "L" -50 0 50 V V C CNN
-F1 "OPL3_VGM_Player-rescue_L-device" 75 0 50 V V C CNN
+F1 "L-device" 75 0 50 V V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -183,11 +183,11 @@ X 2 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_LD1117S33TR_SOT223-regul
+# LD1117S33TR_SOT223-regul
 #
-DEF OPL3_VGM_Player-rescue_LD1117S33TR_SOT223-regul U 0 10 Y Y 1 F N
+DEF LD1117S33TR_SOT223-regul U 0 10 Y Y 1 F N
 F0 "U" -150 125 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_LD1117S33TR_SOT223-regul" 0 125 50 H V L CNN
+F1 "LD1117S33TR_SOT223-regul" 0 125 50 H V L CNN
 F2 "TO_SOT_Packages_SMD:SOT-223-3Lead_TabPin2" 0 200 50 H I C CNN
 F3 "" 100 -250 50 H I C CNN
 $FPLIST
@@ -201,11 +201,11 @@ X VI 3 -300 0 100 R 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_L_Small-device
+# L_Small-device
 #
-DEF OPL3_VGM_Player-rescue_L_Small-device L 0 10 N N 1 F N
+DEF L_Small-device L 0 10 N N 1 F N
 F0 "L" 30 40 50 H V L CNN
-F1 "OPL3_VGM_Player-rescue_L_Small-device" 30 -40 50 H V L CNN
+F1 "L_Small-device" 30 -40 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -224,11 +224,11 @@ X ~ 2 0 -100 20 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_Micro_SD_Card-conn
+# Micro_SD_Card-conn
 #
-DEF OPL3_VGM_Player-rescue_Micro_SD_Card-conn J 0 40 Y Y 1 F N
+DEF Micro_SD_Card-conn J 0 40 Y Y 1 F N
 F0 "J" -650 600 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_Micro_SD_Card-conn" 650 600 50 H V R CNN
+F1 "Micro_SD_Card-conn" 650 600 50 H V R CNN
 F2 "" 1150 300 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -254,11 +254,11 @@ X SHIELD 9 800 -600 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_MountingHole-mechanical
+# MountingHole-mechanical
 #
-DEF OPL3_VGM_Player-rescue_MountingHole-mechanical H 0 40 Y Y 1 F N
+DEF MountingHole-mechanical H 0 40 Y Y 1 F N
 F0 "H" 0 200 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_MountingHole-mechanical" 0 125 50 H V C CNN
+F1 "MountingHole-mechanical" 0 125 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -269,11 +269,11 @@ C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_R_POT_Dual-device
+# R_POT_Dual-device
 #
-DEF OPL3_VGM_Player-rescue_R_POT_Dual-device RV 0 40 Y N 1 F N
+DEF R_POT_Dual-device RV 0 40 Y N 1 F N
 F0 "RV" 0 150 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_R_POT_Dual-device" 0 75 50 H V C CNN
+F1 "R_POT_Dual-device" 0 75 50 H V C CNN
 F2 "" 250 -75 50 H I C CNN
 F3 "" 250 -75 50 H I C CNN
 $FPLIST
@@ -311,11 +311,11 @@ X 6 6 400 -100 50 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_R_Small-device
+# R_Small-device
 #
-DEF OPL3_VGM_Player-rescue_R_Small-device R 0 10 N N 1 F N
+DEF R_Small-device R 0 10 N N 1 F N
 F0 "R" 30 20 50 H V L CNN
-F1 "OPL3_VGM_Player-rescue_R_Small-device" 30 -40 50 H V L CNN
+F1 "R_Small-device" 30 -40 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -328,11 +328,11 @@ X ~ 2 0 -100 30 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_STM32F103C8Tx-stm32
+# STM32F103C8Tx-stm32
 #
-DEF OPL3_VGM_Player-rescue_STM32F103C8Tx-stm32 U 0 40 Y Y 1 L N
+DEF STM32F103C8Tx-stm32 U 0 40 Y Y 1 L N
 F0 "U" -2800 1725 50 H V L BNN
-F1 "OPL3_VGM_Player-rescue_STM32F103C8Tx-stm32" 2800 1725 50 H V R BNN
+F1 "STM32F103C8Tx-stm32" 2800 1725 50 H V R BNN
 F2 "Housings_QFP:LQFP-48_7x7mm_Pitch0.5mm" 2800 1675 50 H I R TNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -388,11 +388,11 @@ X VDDA 9 100 1800 100 D 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_SW_Push_Dual-switches
+# SW_Push_Dual-switches
 #
-DEF OPL3_VGM_Player-rescue_SW_Push_Dual-switches SW 0 40 Y N 1 F N
+DEF SW_Push_Dual-switches SW 0 40 Y N 1 F N
 F0 "SW" 50 100 50 H V L CNN
-F1 "OPL3_VGM_Player-rescue_SW_Push_Dual-switches" 0 -270 50 H V C CNN
+F1 "SW_Push_Dual-switches" 0 -270 50 H V C CNN
 F2 "" 0 200 50 H I C CNN
 F3 "" 0 200 50 H I C CNN
 DRAW
@@ -415,11 +415,11 @@ X 4 4 200 -200 100 L 50 50 0 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_TL074-linear
+# TL074-linear
 #
-DEF OPL3_VGM_Player-rescue_TL074-linear U 0 20 Y Y 4 F N
+DEF TL074-linear U 0 20 Y Y 4 F N
 F0 "U" 0 200 50 H V L CNN
-F1 "OPL3_VGM_Player-rescue_TL074-linear" 0 -200 50 H V L CNN
+F1 "TL074-linear" 0 -200 50 H V L CNN
 F2 "" -50 100 50 H I C CNN
 F3 "" 50 200 50 H I C CNN
 $FPLIST
@@ -448,11 +448,11 @@ X ~ 14 300 0 100 L 50 50 4 1 O
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_USB_OTG-conn
+# USB_OTG-conn
 #
-DEF OPL3_VGM_Player-rescue_USB_OTG-conn J 0 40 Y Y 1 F N
+DEF USB_OTG-conn J 0 40 Y Y 1 F N
 F0 "J" -200 450 50 H V L CNN
-F1 "OPL3_VGM_Player-rescue_USB_OTG-conn" -200 350 50 H V L CNN
+F1 "USB_OTG-conn" -200 350 50 H V L CNN
 F2 "" 150 -50 50 H I C CNN
 F3 "" 150 -50 50 H I C CNN
 $FPLIST
@@ -483,11 +483,11 @@ X Shield 6 -100 -400 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_YAC512-M-OPL3
+# YAC512-M-OPL3
 #
-DEF OPL3_VGM_Player-rescue_YAC512-M-OPL3 U 0 40 Y Y 1 F N
+DEF YAC512-M-OPL3 U 0 40 Y Y 1 F N
 F0 "U" 250 200 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_YAC512-M-OPL3" 400 100 50 H V C CNN
+F1 "YAC512-M-OPL3" 400 100 50 H V C CNN
 F2 "" 400 100 50 H I C CNN
 F3 "" 400 100 50 H I C CNN
 DRAW
@@ -511,11 +511,11 @@ X TST1 9 1000 -700 200 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# OPL3_VGM_Player-rescue_YMF262-M-OPL3
+# YMF262-M-OPL3
 #
-DEF OPL3_VGM_Player-rescue_YMF262-M-OPL3 U 0 40 Y Y 1 F N
+DEF YMF262-M-OPL3 U 0 40 Y Y 1 F N
 F0 "U" 100 200 50 H V C CNN
-F1 "OPL3_VGM_Player-rescue_YMF262-M-OPL3" 250 100 50 H V C CNN
+F1 "YMF262-M-OPL3" 250 100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -544,141 +544,6 @@ X WR 6 -200 -500 200 R 50 50 1 1 I
 X RD 7 -200 -600 200 R 50 50 1 1 I
 X CS 8 -200 -700 200 R 50 50 1 1 I
 X TEST 9 -200 -800 200 R 50 50 1 1 I
-ENDDRAW
-ENDDEF
-#
-# conn_custom_Audio-Jack-3
-#
-DEF conn_custom_Audio-Jack-3 J 0 40 Y Y 1 F N
-F0 "J" -50 175 50 H V C CNN
-F1 "conn_custom_Audio-Jack-3" 100 -70 50 H V C CNN
-F2 "" 250 100 50 H I C CNN
-F3 "" 250 100 50 H I C CNN
-DRAW
-T 0 -100 50 30 0 0 0 2 Normal 0 C C
-T 0 -25 50 30 0 0 0 3 Normal 0 C C
-S -185 125 100 -25 0 1 10 f
-S -175 0 -205 100 0 1 0 F
-P 4 0 1 10 -50 0 -25 25 0 0 100 0 N
-P 4 0 1 10 100 100 -75 100 -100 75 -125 100 N
-X ~ 1 -200 -100 100 U 50 50 1 1 P
-X ~ 2 200 100 100 L 50 50 1 1 P
-X ~ 3 200 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# power_+3.3V
-#
-DEF power_+3.3V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+3.3V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-ALIAS +3.3V
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +3V3 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+3V3
-#
-DEF power_+3V3 #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+3V3" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +3V3 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+5V
-#
-DEF power_+5V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +5V 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+5VA
-#
-DEF power_+5VA #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5VA" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +5VA 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_GND
-#
-DEF power_GND #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GND 1 0 0 0 D 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_GNDA
-#
-DEF power_GNDA #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GNDA" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GNDA 1 0 0 0 D 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_GNDD
-#
-DEF power_GNDD #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GNDD" 0 -125 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-S -50 -60 50 -80 0 1 10 F
-P 2 0 1 0 0 0 0 -60 N
-X GNDD 1 0 0 0 D 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_VCC
-#
-DEF power_VCC #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_VCC" 0 150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-C 0 75 25 0 1 0 N
-P 2 0 1 0 0 0 0 50 N
-X VCC 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #

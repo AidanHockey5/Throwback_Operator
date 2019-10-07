@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:OPL3_VGM_Player-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L OPL3_VGM_Player-rescue:STM32F103C8Tx-stm32 U2
+L stm32:STM32F103C8Tx U2
 U 1 1 5D058320
 P 4800 3100
 F 0 "U2" H 5700 5000 50  0000 C CNN
@@ -34,7 +34,7 @@ Text Notes 15500 11050 0    50   ~ 0
 Text Notes 13050 11050 0    50   ~ 0
 Saturday, June 15 2019
 $Comp
-L OPL3_VGM_Player-rescue:LD1117S33TR_SOT223-regul U1
+L regul:LD1117S33TR_SOT223 U1
 U 1 1 5D0584AC
 P 3000 9600
 F 0 "U1" H 3000 9842 50  0000 C CNN
@@ -45,7 +45,7 @@ F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/da
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:USB_OTG-conn J1
+L conn:USB_OTG J1
 U 1 1 5D058575
 P 1500 9800
 F 0 "J1" H 1555 10267 50  0000 C CNN
@@ -79,7 +79,7 @@ Connection ~ 2200 9600
 Wire Wire Line
 	2200 9450 2200 9600
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C1
+L device:C_Small C1
 U 1 1 5D058A9F
 P 2650 9750
 F 0 "C1" H 2500 9800 50  0000 L CNN
@@ -115,7 +115,7 @@ F 3 "" H 3000 10100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C2
+L device:C_Small C2
 U 1 1 5D058C1E
 P 3350 9750
 F 0 "C2" H 3450 9800 50  0000 L CNN
@@ -150,7 +150,7 @@ F 3 "" H 3550 9450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:CH340E-ch340 U3
+L ch340:CH340E U3
 U 1 1 5D05952B
 P 2050 6100
 F 0 "U3" H 2300 6325 50  0000 C CNN
@@ -174,7 +174,7 @@ $EndComp
 NoConn ~ 2750 6500
 NoConn ~ 1800 10000
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C3
+L device:C_Small C3
 U 1 1 5D059B23
 P 2950 6100
 F 0 "C3" V 2721 6100 50  0000 C CNN
@@ -238,7 +238,7 @@ F 3 "" H 4050 9650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:L-device L1
+L device:L L1
 U 1 1 5D05ACFF
 P 4500 9650
 F 0 "L1" V 4322 9650 50  0000 C CNN
@@ -251,7 +251,7 @@ $EndComp
 Wire Wire Line
 	4050 9650 4350 9650
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C4
+L device:C_Small C4
 U 1 1 5D05AF43
 P 4350 9850
 F 0 "C4" H 4442 9896 50  0000 L CNN
@@ -267,7 +267,7 @@ Connection ~ 4350 9650
 Wire Wire Line
 	4350 9950 4350 10050
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C5
+L device:C_Small C5
 U 1 1 5D05B3BD
 P 4700 9850
 F 0 "C5" H 4792 9896 50  0000 L CNN
@@ -287,12 +287,12 @@ Connection ~ 4700 10050
 Wire Wire Line
 	4700 10050 4350 10050
 $Comp
-L OPL3_VGM_Player-rescue:CP_Small-device C6
+L device:CP_Small C6
 U 1 1 5D05BC83
 P 5100 9850
 F 0 "C6" H 5188 9896 50  0000 L CNN
 F 1 "10uF" H 5188 9805 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 5100 9850 50  0001 C CNN
+F 2 "Capacitors_SMD:CP_Elec_3x5.3" H 5100 9850 50  0001 C CNN
 F 3 "~" H 5100 9850 50  0001 C CNN
 	1    5100 9850
 	1    0    0    -1  
@@ -420,7 +420,7 @@ F 3 "" H 4900 1300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C9
+L device:C_Small C9
 U 1 1 5D05E033
 P 3200 900
 F 0 "C9" H 3292 946 50  0000 L CNN
@@ -431,7 +431,7 @@ F 3 "~" H 3200 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C10
+L device:C_Small C10
 U 1 1 5D05E075
 P 3700 900
 F 0 "C10" H 3792 946 50  0000 L CNN
@@ -442,7 +442,7 @@ F 3 "~" H 3700 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C11
+L device:C_Small C11
 U 1 1 5D05E0B5
 P 4200 900
 F 0 "C11" H 4292 946 50  0000 L CNN
@@ -519,7 +519,7 @@ F 3 "" H 3200 1000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:Crystal_Small-device Y1
+L device:Crystal_Small Y1
 U 1 1 5D05E7AA
 P 1250 2350
 F 0 "Y1" V 1296 2262 50  0000 R CNN
@@ -542,7 +542,7 @@ Wire Wire Line
 Wire Wire Line
 	1800 2400 1900 2400
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C7
+L device:C_Small C7
 U 1 1 5D05F226
 P 1000 2250
 F 0 "C7" V 771 2250 50  0000 C CNN
@@ -553,7 +553,7 @@ F 3 "~" H 1000 2250 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C8
+L device:C_Small C8
 U 1 1 5D05F2AD
 P 1000 2450
 F 0 "C8" V 1100 2450 50  0000 C CNN
@@ -588,7 +588,7 @@ Wire Wire Line
 	800  2250 800  2450
 Connection ~ 800  2450
 $Comp
-L OPL3_VGM_Player-rescue:Conn_02x03_Odd_Even-conn J2
+L conn:Conn_02x03_Odd_Even J2
 U 1 1 5D062755
 P 6200 850
 F 0 "J2" H 6250 1167 50  0000 C CNN
@@ -649,7 +649,7 @@ BOOT0
 Text GLabel 1150 3200 0    50   Input ~ 0
 BOOT1
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R2
+L device:R_Small R2
 U 1 1 5D062BAD
 P 1350 3200
 F 0 "R2" V 1200 3200 50  0000 C CNN
@@ -662,7 +662,7 @@ $EndComp
 Text GLabel 1400 1900 0    50   Input ~ 0
 BOOT0
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R1
+L device:R_Small R1
 U 1 1 5D063E0F
 P 1650 1900
 F 0 "R1" V 1750 1900 50  0000 C CNN
@@ -677,7 +677,7 @@ Wire Wire Line
 Wire Wire Line
 	1750 1900 1900 1900
 $Comp
-L OPL3_VGM_Player-rescue:Micro_SD_Card-conn J3
+L conn:Micro_SD_Card J3
 U 1 1 5D069A71
 P 2100 7700
 F 0 "J3" H 2050 6883 50  0000 C CNN
@@ -725,7 +725,7 @@ Text GLabel 3000 7900 2    50   Input ~ 0
 SD_CS
 NoConn ~ 3000 8000
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C12
+L device:C_Small C12
 U 1 1 5D06D6F8
 P 3600 7600
 F 0 "C12" H 3692 7646 50  0000 L CNN
@@ -766,7 +766,7 @@ SD_MISO
 Text GLabel 7700 3700 2    50   Input ~ 0
 SD_MOSI
 $Comp
-L OPL3_VGM_Player-rescue:SW_Push_Dual-switches SW1
+L switches:SW_Push_Dual SW1
 U 1 1 5D06F88C
 P 1150 1050
 F 0 "SW1" H 1150 1335 50  0000 C CNN
@@ -781,7 +781,7 @@ Wire Wire Line
 Wire Wire Line
 	750  1050 750  1300
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R3
+L device:R_Small R3
 U 1 1 5D070400
 P 750 1400
 F 0 "R3" H 809 1446 50  0000 L CNN
@@ -814,7 +814,7 @@ Connection ~ 1700 1700
 Wire Wire Line
 	1700 1700 1900 1700
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R4
+L device:R_Small R4
 U 1 1 5D071EF5
 P 1700 1350
 F 0 "R4" H 1759 1396 50  0000 L CNN
@@ -871,7 +871,7 @@ F 3 "" H 5800 9600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:L_Small-device L2
+L device:L_Small L2
 U 1 1 5D074F1A
 P 6200 9650
 F 0 "L2" V 6022 9650 50  0000 C CNN
@@ -907,12 +907,12 @@ $EndComp
 Wire Wire Line
 	5800 9950 6600 9950
 $Comp
-L OPL3_VGM_Player-rescue:CP_Small-device C13
+L device:CP_Small C13
 U 1 1 5D07AFBC
 P 6600 9800
 F 0 "C13" H 6688 9846 50  0000 L CNN
 F 1 "10uF" H 6688 9755 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 6600 9800 50  0001 C CNN
+F 2 "Capacitors_SMD:CP_Elec_3x5.3" H 6600 9800 50  0001 C CNN
 F 3 "~" H 6600 9800 50  0001 C CNN
 	1    6600 9800
 	1    0    0    -1  
@@ -924,7 +924,7 @@ Wire Wire Line
 	6600 9900 6600 9950
 Connection ~ 6600 9950
 $Comp
-L OPL3_VGM_Player-rescue:YMF262-M-OPL3 U4
+L OPL3:YMF262-M U4
 U 1 1 5D082473
 P 10650 3300
 F 0 "U4" H 10925 3525 50  0000 C CNN
@@ -935,7 +935,7 @@ F 3 "" H 10650 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:YAC512-M-OPL3 U5
+L OPL3:YAC512-M U5
 U 1 1 5D0824E8
 P 12750 3300
 F 0 "U5" H 13250 3525 50  0000 C CNN
@@ -968,7 +968,7 @@ F 3 "" H 10450 4400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C14
+L device:C_Small C14
 U 1 1 5D082F21
 P 10900 4800
 F 0 "C14" H 10808 4754 50  0000 R CNN
@@ -1001,7 +1001,7 @@ F 3 "" H 10900 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C15
+L device:C_Small C15
 U 1 1 5D0834D1
 P 13250 4400
 F 0 "C15" H 13158 4354 50  0000 R CNN
@@ -1058,7 +1058,7 @@ YM_CS
 Text GLabel 7700 3800 2    50   Input ~ 0
 YM_CS
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R5
+L device:R_Small R5
 U 1 1 5D06D45A
 P 10000 3900
 F 0 "R5" V 9804 3900 50  0000 C CNN
@@ -1120,7 +1120,7 @@ D6
 Text GLabel 1900 4500 0    50   Input ~ 0
 D7
 $Comp
-L OPL3_VGM_Player-rescue:Conn_01x04-conn J4
+L conn:Conn_01x04 J4
 U 1 1 5D073B3F
 P 7800 800
 F 0 "J4" H 7880 792 50  0000 L CNN
@@ -1234,7 +1234,7 @@ F 3 "" H 13750 4000 50  0001 C CNN
 $EndComp
 NoConn ~ 13750 3400
 $Comp
-L OPL3_VGM_Player-rescue:TL074-linear U6
+L linear:TL074 U6
 U 1 1 5D088E9C
 P 14850 2600
 F 0 "U6" H 15191 2646 50  0000 L CNN
@@ -1245,7 +1245,7 @@ F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 14900 2800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:TL074-linear U6
+L linear:TL074 U6
 U 3 1 5D08A6B2
 P 14850 4200
 F 0 "U6" H 15191 4246 50  0000 L CNN
@@ -1256,7 +1256,7 @@ F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 14900 4400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:TL074-linear U6
+L linear:TL074 U6
 U 4 1 5D08A737
 P 14850 5000
 F 0 "U6" H 15191 5046 50  0000 L CNN
@@ -1289,7 +1289,7 @@ F 3 "" H 14750 2100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C20
+L device:C_Small C20
 U 1 1 5D08B2F4
 P 15050 2200
 F 0 "C20" V 14821 2200 50  0000 C CNN
@@ -1318,12 +1318,12 @@ F 3 "" H 15150 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:CP_Small-device C19
+L device:CP_Small C19
 U 1 1 5D08F345
 P 14150 2600
 F 0 "C19" H 14238 2646 50  0000 L CNN
 F 1 "10uF" H 14238 2555 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 14150 2600 50  0001 C CNN
+F 2 "Capacitors_SMD:CP_Elec_3x5.3" H 14150 2600 50  0001 C CNN
 F 3 "~" H 14150 2600 50  0001 C CNN
 	1    14150 2600
 	1    0    0    -1  
@@ -1363,7 +1363,7 @@ Wire Wire Line
 Wire Wire Line
 	13950 3300 14050 3300
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C16
+L device:C_Small C16
 U 1 1 5D099A66
 P 14050 3400
 F 0 "C16" H 13958 3354 50  0000 R CNN
@@ -1388,7 +1388,7 @@ F 3 "" H 14050 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R6
+L device:R_Small R6
 U 1 1 5D09C4DE
 P 14400 3500
 F 0 "R6" V 14300 3500 50  0000 C CNN
@@ -1406,7 +1406,7 @@ Wire Wire Line
 Wire Wire Line
 	14300 3700 13750 3700
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C18
+L device:C_Small C18
 U 1 1 5D0ACB88
 P 14100 4150
 F 0 "C18" H 14008 4104 50  0000 R CNN
@@ -1456,7 +1456,7 @@ Wire Wire Line
 Wire Wire Line
 	14000 4900 14050 4900
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C17
+L device:C_Small C17
 U 1 1 5D0BD076
 P 14050 5000
 F 0 "C17" H 13958 4954 50  0000 R CNN
@@ -1492,7 +1492,7 @@ Connection ~ 15150 5000
 Text GLabel 15550 5000 2    50   Input ~ 0
 CH1_OUT
 $Comp
-L OPL3_VGM_Player-rescue:TL074-linear U6
+L linear:TL074 U6
 U 2 1 5D08A637
 P 14850 3400
 F 0 "U6" H 15191 3446 50  0000 L CNN
@@ -1509,7 +1509,7 @@ Wire Wire Line
 Wire Wire Line
 	14500 3500 14500 3750
 $Comp
-L OPL3_VGM_Player-rescue:128x32_I2C_OLED-oled DS1
+L oled:128x32_I2C_OLED DS1
 U 1 1 5D077C17
 P 7150 6600
 F 0 "DS1" H 7868 6825 50  0000 C CNN
@@ -1545,7 +1545,7 @@ Wire Wire Line
 	3350 10050 3350 10000
 Connection ~ 3350 10000
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R7
+L device:R_Small R7
 U 1 1 5D07C9BC
 P 6250 6800
 F 0 "R7" V 6054 6800 50  0000 C CNN
@@ -1556,7 +1556,7 @@ F 3 "~" H 6250 6800 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:L_Small-device L3
+L device:L_Small L3
 U 1 1 5D07CEA5
 P 6600 6800
 F 0 "L3" V 6422 6800 50  0000 C CNN
@@ -1567,7 +1567,7 @@ F 3 "~" H 6600 6800 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:C_Small-device C21
+L device:C_Small C21
 U 1 1 5D07D0A0
 P 6750 7050
 F 0 "C21" H 6600 7100 50  0000 L CNN
@@ -1619,7 +1619,7 @@ SCL
 Text GLabel 1300 3700 0    50   Input ~ 0
 SDA
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R8
+L device:R_Small R8
 U 1 1 5D0A02B2
 P 1200 3500
 F 0 "R8" V 1004 3500 50  0000 C CNN
@@ -1630,7 +1630,7 @@ F 3 "~" H 1200 3500 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:R_Small-device R9
+L device:R_Small R9
 U 1 1 5D0A03C9
 P 1200 3800
 F 0 "R9" V 1400 3800 50  0000 C CNN
@@ -1677,7 +1677,7 @@ Wire Wire Line
 	800  3800 800  3500
 Connection ~ 800  3500
 $Comp
-L OPL3_VGM_Player-rescue:SW_Push_Dual-switches SW2
+L switches:SW_Push_Dual SW2
 U 1 1 5D0BD2C0
 P 6600 7900
 F 0 "SW2" H 6600 8185 50  0000 C CNN
@@ -1701,7 +1701,7 @@ $EndComp
 Text GLabel 6400 7900 0    50   Input ~ 0
 PREV
 $Comp
-L OPL3_VGM_Player-rescue:SW_Push_Dual-switches SW3
+L switches:SW_Push_Dual SW3
 U 1 1 5D0BE187
 P 7400 7900
 F 0 "SW3" H 7400 8185 50  0000 C CNN
@@ -1725,7 +1725,7 @@ $EndComp
 Text GLabel 7200 7900 0    50   Input ~ 0
 RAND
 $Comp
-L OPL3_VGM_Player-rescue:SW_Push_Dual-switches SW4
+L switches:SW_Push_Dual SW4
 U 1 1 5D0C3590
 P 8200 7900
 F 0 "SW4" H 8200 8185 50  0000 C CNN
@@ -1749,7 +1749,7 @@ $EndComp
 Text GLabel 8000 7900 0    50   Input ~ 0
 NEXT
 $Comp
-L OPL3_VGM_Player-rescue:SW_Push_Dual-switches SW5
+L switches:SW_Push_Dual SW5
 U 1 1 5D0C8984
 P 9000 7900
 F 0 "SW5" H 9000 8185 50  0000 C CNN
@@ -1797,12 +1797,12 @@ CH2_OUT
 Text GLabel 13650 5750 0    50   Input ~ 0
 CH1_OUT
 $Comp
-L OPL3_VGM_Player-rescue:CP_Small-device C22
+L device:CP_Small C22
 U 1 1 5D10A294
 P 13900 5750
 F 0 "C22" V 14125 5750 50  0000 C CNN
 F 1 "10uF" V 14034 5750 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 13900 5750 50  0001 C CNN
+F 2 "Capacitors_SMD:CP_Elec_3x5.3" H 13900 5750 50  0001 C CNN
 F 3 "~" H 13900 5750 50  0001 C CNN
 	1    13900 5750
 	0    -1   -1   0   
@@ -1810,12 +1810,12 @@ $EndComp
 Wire Wire Line
 	13650 5750 13800 5750
 $Comp
-L OPL3_VGM_Player-rescue:CP_Small-device C23
+L device:CP_Small C23
 U 1 1 5D10F969
 P 13900 6250
 F 0 "C23" V 13800 6250 50  0000 C CNN
 F 1 "10uF" V 13700 6250 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 13900 6250 50  0001 C CNN
+F 2 "Capacitors_SMD:CP_Elec_3x5.3" H 13900 6250 50  0001 C CNN
 F 3 "~" H 13900 6250 50  0001 C CNN
 	1    13900 6250
 	0    -1   -1   0   
@@ -1823,7 +1823,7 @@ $EndComp
 Wire Wire Line
 	13800 6250 13650 6250
 $Comp
-L OPL3_VGM_Player-rescue:R_POT_Dual-device RV1
+L device:R_POT_Dual RV1
 U 1 1 5D115438
 P 14750 6150
 F 0 "RV1" V 14704 5962 50  0000 R CNN
@@ -1911,7 +1911,7 @@ F 3 "" H 1900 2100 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:MountingHole-mechanical H1
+L mechanical:MountingHole H1
 U 1 1 5D0CCC85
 P 15850 9200
 F 0 "H1" H 15950 9246 50  0000 L CNN
@@ -1922,7 +1922,7 @@ F 3 "~" H 15850 9200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:MountingHole-mechanical H2
+L mechanical:MountingHole H2
 U 1 1 5D0CCDCD
 P 15850 9400
 F 0 "H2" H 15950 9446 50  0000 L CNN
@@ -1933,7 +1933,7 @@ F 3 "~" H 15850 9400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:MountingHole-mechanical H3
+L mechanical:MountingHole H3
 U 1 1 5D0CCE57
 P 15850 9600
 F 0 "H3" H 15950 9646 50  0000 L CNN
@@ -1944,7 +1944,7 @@ F 3 "~" H 15850 9600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L OPL3_VGM_Player-rescue:MountingHole-mechanical H4
+L mechanical:MountingHole H4
 U 1 1 5D0CCEE7
 P 15850 9800
 F 0 "H4" H 15950 9846 50  0000 L CNN
