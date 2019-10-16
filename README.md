@@ -63,3 +63,13 @@ Programming over Serial:
 * In VS Code (or whatever your IDE of choice is), navigate to the `platformio.ini` and ensure the upload protocol is set to `serial`
 * Hit the upload button (Arrow icon in the bottom bar of VS code)
 * Once your code is uploaded, replace the left jumper to its original "Down" position 
+
+# Troubleshooting
+
+Occasionally, when the player is first plugged in, it will hang or get caught in a boot-loop. Plugging in a USB cable gives breif moments of unstable power when the contacts inside of the connector are jostling against eachother which may place the SD card in an unknown state. Simply disconnect and reconnect the USB cable if you are caught in a bootloop.
+
+This player is for OPL-family VGMs only. That means you can play any VGM file that contains data for the YM3526 (OPL), YM3812 (OPL2) or the YMF262 (OPL3).
+
+Ensure that your VGM files are uncompressed. VGZ files will not work. Simply use 7zip on VGM files to extract the VGM files within.
+
+Make sure your SD card is formatted to FAT32 and only contains VGM files. Folders are not supported.
