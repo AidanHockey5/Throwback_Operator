@@ -73,3 +73,10 @@ This player is for OPL-family VGMs only. That means you can play any VGM file th
 Ensure that your VGM files are uncompressed. VGZ files will not work. Simply use 7zip on VGM files to extract the VGM files within.
 
 Make sure your SD card is formatted to FAT32 and only contains VGM files. Folders are not supported.
+
+# Looking for an Enclosure for your Player?
+
+Voodle has contributed a 3D-printable enclosure for the Throwback operator!
+https://www.thingiverse.com/thing:4577831
+
+Thanks, Voodle!
