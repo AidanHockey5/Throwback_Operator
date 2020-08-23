@@ -76,7 +76,7 @@ Make sure your SD card is formatted to FAT32 and only contains VGM files. Folder
 
 # Looking for an Enclosure for your Player?
 
-Voodle has contributed a 3D-printable enclosure for the Throwback operator!
+Voodle has contributed a 3D-printable enclosure for the Throwback Operator!
 https://www.thingiverse.com/thing:4577831
 
 Thanks, Voodle!
