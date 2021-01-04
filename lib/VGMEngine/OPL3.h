@@ -1,6 +1,9 @@
 #ifndef __OPL3_H__
 #define __OPL3_H__
 #include <Arduino.h>
+#include "Bus.h"
+
+#define nop __asm__ __volatile__ ("nop\n\t")
 
 class OPL3
 {
@@ -10,13 +13,13 @@ private:
     uint8_t A0 = PC13;
     uint8_t A1 = PC14;
     uint8_t WR = PB5;
-
+    uint32_t clkfrq;
 public:
     OPL3(/* args */);
     ~OPL3();
-    void Send(uint8_t addr, uint8_t data, bool setA1);
-    void SetOPLMode(bool isOPL3);
-    void Reset();
+    void write(uint8_t addr, uint8_t data, bool setA1);
+    void setOPLMode(bool isOPL3);
+    void reset();
 };
 
 
