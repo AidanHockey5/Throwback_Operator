@@ -34,10 +34,10 @@ bool VGMEngineClass::begin(File *f)
     #if ENABLE_SPIRAM
         ram.Init();
     #endif
-    #if ENABLE_YM2612
-        storePCM();
-        pcmBufferPosition = 0;
-    #endif
+
+    storePCM(true);
+    pcmBufferPosition = 0;
+
     waitSamples = 0;
     loopCount = 0;
     MegaStream_Reset(&stream);
@@ -99,7 +99,6 @@ bool VGMEngineClass::topUp()
     return false;
 }
 
-#if ENABLE_YM2612
 bool VGMEngineClass::storePCM(bool skip)
 {
     bool isPCM = false;
@@ -112,6 +111,11 @@ bool VGMEngineClass::storePCM(bool skip)
         file->read(); //datatype
         uint32_t pcmSize = 0;
         file->read(&pcmSize, 4); //PCM chunk size
+        if(skip)            //On loop, you'll want to just skip the PCM block since it's already loaded.
+        {
+            file->seekCur(pcmSize);
+            return false;
+        }
         if(pcmSize > MAX_PCM_BUFFER_SIZE)
         {
             return true; //todo: Error out here or go to next track. return is temporary
@@ -120,16 +124,15 @@ bool VGMEngineClass::storePCM(bool skip)
         {
             for(uint32_t i = 0; i<pcmSize; i++)
             {
-                if(skip)            //On loop, you'll want to just skip the PCM block since it's already loaded.
-                    file->read();
+                #if ENABLE_SPIRAM
                 else
                     ram.WriteByte(i, file->read());
+                #endif
             }
         }
     } 
     return isPCM;
 }
-#endif
 
 bool VGMEngineClass::load(bool singleChunk)
 {
@@ -284,19 +287,15 @@ uint16_t VGMEngineClass::parseVGM()
             #endif
             break;
             case 0x61:
-                //ready = true;
                 return readBuf16();
             case 0x62:
-                //ready = true;
                 return 735;
             case 0x63:
-                //ready = true;
                 return 882;
             case 0x67:
             {
                 //who puttin' 0x67's in MUH stream?
                 Serial.println("0x67 PCM STORE command encountered mid stream");
-                //ready = true;
                 break;
             }
             case 0x70:
@@ -315,7 +314,6 @@ uint16_t VGMEngineClass::parseVGM()
             case 0x7D:
             case 0x7E:
             case 0x7F:
-                //ready = true;
                 return (cmd & 0x0F)+1;
             case 0x80:
             case 0x81:
@@ -336,13 +334,13 @@ uint16_t VGMEngineClass::parseVGM()
             {
             #if ENABLE_YM2612
                 ym2612->write(0x2A, ram.ReadByte(pcmBufferPosition++), 0);
-                //ready = true;
-                uint8_t wait = (cmd & 0x0F);
-                if(wait == 0)
-                    break;
-                else
-                    return wait;
             #endif
+
+            uint8_t wait = (cmd & 0x0F);
+            if(wait == 0)
+                break;
+            else
+                return wait;
             }
             case 0xE0:
                 pcmBufferPosition = readBuf32();
@@ -351,11 +349,37 @@ uint16_t VGMEngineClass::parseVGM()
             {
                 //Loop
                 loopCount++;
-                //ready = true;
                 return 0;
             }
+
+            break;
+            
+            //Things to ignore
+            case 0xB5: //Ignore common secondary PCM chips
+            case 0xB6:
+            case 0xB7:
+            case 0xB8:
+            case 0xB9:
+            case 0xBA:
+            case 0xBB:
+            case 0xBC:
+            case 0xBD:
+            case 0xBE:
+            case 0xBF:
+            readBuf16();
+            break;
+            case 0xC0: //Ignore SegaPCM:
+            case 0xC1:
+            case 0xC2:
+            case 0xC3:
+            readBufOne();readBufOne();readBufOne();
+            break;
+            case 0xD4:
+            readBufOne();readBufOne();readBufOne();
+            break;
+
+
             default:
-                //ready = true;
                 Serial.print("E:"); Serial.println(cmd, HEX);
                 return 0;
         }

@@ -11,6 +11,7 @@
 #define min(a,b) ((a) < (b) ? (a) : (b))
 #define OPL_DEFAULT_CLOCK 14318180
 #define NTSC_COLORBURST 3579545
+#define MAX_PCM_BUFFER_SIZE 0
 
 class VGMEngineClass
 {

@@ -47,7 +47,7 @@ uint16_t waitSamples = 0;
 uint16_t loopCount = 0;
 const uint8_t maxLoops = 3;
 bool fetching = false;
-volatile bool ready = false;
+bool trackError = false;
 //PlayMode playMode = PlayMode::IN_ORDER;
 
 //IO
@@ -198,7 +198,6 @@ void drawOLEDTrackInfo()
 bool startTrack(FileStrategy fileStrategy, String request)
 {
   pauseISR();
-  ready = false;
   File nextFile;
   memset(fileName, 0x00, MAX_FILE_NAME_SIZE);
 
@@ -325,6 +324,7 @@ bool startTrack(FileStrategy fileStrategy, String request)
   }
 
   fail:
+  trackError = true;
   setISR();
   return false;
 }
@@ -466,11 +466,21 @@ void handleButtons()
 
 void loop()
 {   
+  if(trackError)
+  {
+    startTrack(NEXT);
+    trackError = false;
+  }
   while(!VGMEngine.play()) //needs to account for LOOP playmode
   {
     if(Serial.available() > 0)
       handleSerialIn();
     handleButtons();
+    if(trackError)
+    {
+      startTrack(NEXT);
+      trackError = false;
+    }
   }
   //Hit max loops and/or VGM exited
   if(playMode == PlayMode::SHUFFLE)
