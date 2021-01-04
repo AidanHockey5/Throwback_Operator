@@ -99,6 +99,8 @@
 #elif defined(__arm__)
 // ARM gcc defines open flags.
 #define USE_FCNTL_H 1
+#elif defined(ESP32)
+#define USE_FCNTL_H 1
 #else  // defined(__AVR__)
 #define USE_FCNTL_H 0
 #endif  // defined(__AVR__)
@@ -145,7 +147,7 @@
 #endif
 //------------------------------------------------------------------------------
 /**
- * Set FAT12_SUPPORT nonzero to enable use if FAT12 volumes.
+ * Set FAT12_SUPPORT nonzero to enable use of FAT12 volumes.
  * FAT12 has not been well tested and requires additional flash.
  */
 #define FAT12_SUPPORT 0

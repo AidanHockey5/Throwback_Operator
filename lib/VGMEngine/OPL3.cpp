@@ -6,40 +6,45 @@ union U_32
     uint8_t bytes[4]; //0-1 LOW+HIGH, 2-3 EMPTY
 } port;
 
-void Write(uint8_t data)
+void send(uint8_t data)
 {
     port.fullWord = GPIOB->regs->ODR; //Grab current state of the port
     port.bytes[1] = data;       //Stuff data byte into section where the 8-bit GPIO data bus is
     GPIOB->regs->ODR = port.fullWord; //Send it back to the port
 }
 
-void OPL3::Send(uint8_t addr, uint8_t data, bool setA1)
+void OPL3::write(uint8_t addr, uint8_t data, bool setA1)
 {
     GPIOC->regs->BSRR = (1U << 14) << (16 * !setA1);    //A1 setA1
     GPIOC->regs->ODR &= ~(0x2000);                      //A0 LOW
-    Write(addr);
+    nop;
+    send(addr);
     GPIOB->regs->ODR &= ~(0x20);                        //WR LOW
     GPIOA->regs->ODR |= 0x100;                          //CS LOW (OPEN_DRAIN : HIGH)
     delayMicroseconds(2);
     GPIOB->regs->ODR |= 0x20;                           //WR HIGH
     GPIOA->regs->ODR &= ~(0x100);                       //CS HIGH (OPEN_DRAIN : LOW)
     GPIOC->regs->ODR |= 0x2000;                         //A0 HIGH
-    Write(data);
+    nop;
+    send(data);
     GPIOB->regs->ODR &= ~(0x20);                        //WR LOW
     GPIOA->regs->ODR |= 0x100;                          //CS LOW (OPEN_DRAIN : HIGH)
     delayMicroseconds(2);
     GPIOB->regs->ODR |= 0x20;                           //WR HIGH
     GPIOA->regs->ODR &= ~(0x100);                       //CS HIGH (OPEN_DRAIN : LOW)
+    GPIOC->regs->BSRR = (1U << 14) << (16 * !setA1);    //A1 setA1
+    GPIOC->regs->ODR &= ~(0x2000);                      //A0 LOW
+    delayMicroseconds(5);
 }
 
- void OPL3::SetOPLMode(bool isOPL3)
+ void OPL3::setOPLMode(bool isOPL3)
  {
-    Reset();
-    Send(0x05, isOPL3, 1); //Set the OPL mode. Write 1 to this address for OPL3, 0 for OPL2.
+    reset();
+    write(0x05, isOPL3, 1); //Set the OPL mode. Write 1 to this address for OPL3, 0 for OPL2.
     delayMicroseconds(5);
  }
 
-void OPL3::Reset()
+void OPL3::reset()
 {
     digitalWrite(IC, LOW);
     delayMicroseconds(100);
