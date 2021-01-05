@@ -60,6 +60,17 @@ Programming over Serial:
 * On the top of the board, you will see two black jumpers. By default, these jumpers are both in the "Down" position (middle pin and bottom pin jumped).
 * Remove the left jumper and reattach it to the "Up" position (middle pin and top pin jumped).
 * Press the RESET button on the Throwback Operator board
+
+* You can either program the device with the flashing tool linked below, or from the source code.
+
+[DOWNLOAD THE FLASHING TOOL HERE](https://www.aidanlawrence.com/tools/ee/tbo/Megaflasher_Throwback_Operator.zip)
+
+* Windows users are reccomended to run the pre-compiled "Flash.exe" file.
+  All other operating system users must run the Flash.py file. 
+  Dependancies and instructions are listed in the Readme file.
+* After successfully running the flashing tool, you are done and don't need to continue with the following instructions.
+
+If you plan to build from the source code instead:
 * In VS Code (or whatever your IDE of choice is), navigate to the `platformio.ini` and ensure the upload protocol is set to `serial`
 * Hit the upload button (Arrow icon in the bottom bar of VS code)
 * Once your code is uploaded, replace the left jumper to its original "Down" position 
